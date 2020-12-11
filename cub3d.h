@@ -65,8 +65,8 @@ const int	map[MAP_ROWS][MAP_COLS] = {
 # define RAYON 5
 # define PLAYERLINE 50
 
-# define FOV_ANGLE (45 * (PI / 180))
-# define NUM_RAYS (WIN_WIDTH / 8)
+# define FOV_ANGLE (60 * (PI / 180))
+# define NUM_RAYS (WIN_WIDTH / 3)
 // THIS STRUCTURE IS MY MAIN MLX STRUCTURE
 typedef struct	s_mlx
 {

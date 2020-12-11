@@ -138,6 +138,8 @@ void	draw_line_of_player()
 		my_mlx_pixel_put(x, y, 0xff0000);
 		k--;
 	}
+	//draw_all_rays();
+
 }
 int		draw_player()
 {
@@ -162,9 +164,10 @@ int		draw_player()
         }
         j--;
     }
+	draw_line_of_player();
 	return (0);
 }
-int		ft_press(int key, void *ptr)
+int		key_press(int key)
 {
 	if (key == ESC)
 	{
@@ -179,6 +182,26 @@ int		ft_press(int key, void *ptr)
 		g_player.turn_d = -1;
 	if (key == RIGHT_ARROW)
 		g_player.turn_d = 1;
+	//printf("%d %d  \n",g_player.walk_d,g_player.turn_d);
+	return (0);
+}
+int		key_release(int key)
+{
+	if (key == ESC)
+	{
+		mlx_destroy_window(g_mlx.mlx, g_mlx.win);
+		exit(0);
+	}
+	if (key == UP_ARROW)
+		g_player.walk_d = 0;
+	if (key == DOWN_ARROW)
+		g_player.walk_d = 0;
+	if (key == LEFT_ARROW)
+		g_player.turn_d = 0;
+	if (key == RIGHT_ARROW)
+		g_player.turn_d = 0;
+	//printf("alo\n");
+	
 	return (0);
 }
 int	check_wall(float posx, float posy)
@@ -201,6 +224,7 @@ void	move()
 	float	new_posy;
 	int		r;
 
+	ft_jareb();
 	move_step = g_player.walk_d * g_player.move_speed;
 	new_posy = g_player.y + sin(g_player.rotation_angle) * move_step;
 	new_posx = g_player.x + cos(g_player.rotation_angle) * move_step;
@@ -210,20 +234,23 @@ void	move()
 		g_player.y = new_posy;
 		g_player.x = new_posx;
 	}
+	draw_map();
+	// draw_player();
+	// draw_line_of_player();
 	draw_all_rays();
 	draw_player();
-	draw_line_of_player();
-	init_move();
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_mlx.img, 0, 0);
 }
 int		ft_depends()
 {
-	mlx_hook(g_mlx.win, 2, 0, ft_press, 0);
+	mlx_hook(g_mlx.win, 2, 0, key_press, 0);
+	mlx_hook(g_mlx.win, 3, 0, key_release, 0);
 	//mlx_hook()
-	ft_jareb();
-	draw_map();
-	draw_player();
+	//ft_jareb();
+	//draw_map();
+	//draw_player();
 	move();
+	// mlx_hook(g_mlx.win, 3, 0, key_release, &g_mlx);
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_mlx.img, 0, 0);
 	return (0);
 }
@@ -257,7 +284,7 @@ int		main()
 	//ft_rread();
 	init_player();
 	init_move();
-	mlx_loop_hook(g_mlx.mlx,ft_depends,0);
+	mlx_loop_hook(g_mlx.mlx,ft_depends,(void*)0);
 	mlx_loop(g_mlx.mlx);
 	return (0);
 }
