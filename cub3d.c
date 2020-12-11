@@ -81,6 +81,48 @@ void	ft_jareb()
 	g_mlx.addr = (int *)mlx_get_data_addr(g_mlx.img,
 		&g_mlx.bpp, &g_mlx.size_line, &g_mlx.endian);
 }
+void	rayy(float ray_angle)
+{
+	int		k;
+	float	x;
+	float	y;
+	int		check_x;
+	int		check_y;
+
+	g_player.angle = ray_angle;
+	k = 1;
+	//g_player.rotation_angle += g_player.turn_d * g_player.rotation_speed;
+	while (k)
+	{
+		x = g_player.x + cos(g_player.angle) * k;
+		y = g_player.y + sin(g_player.angle) * k;
+		check_x = (int)(x / TILE_SIZE);
+		check_y = (int)(y / TILE_SIZE);
+		if (map[check_y][check_x] == 1)
+			break;
+		my_mlx_pixel_put(x, y, 0x99ff33);
+		k++;
+	}
+}
+void	draw_all_rays()
+{
+	float	ray_angle;
+	int		i;
+	int		columnid;
+
+	ray_angle = g_player.rotation_angle - (FOV_ANGLE / 2);
+	i = 0;
+	columnid = 0;
+
+	while (i < NUM_RAYS)
+	{
+		rayy(ray_angle);
+		ray_angle += FOV_ANGLE / NUM_RAYS;
+		columnid++;
+		i++;
+	}
+	
+}
 void	draw_line_of_player()
 {
 	int		k;
@@ -146,10 +188,8 @@ int	check_wall(float posx, float posy)
 
 	x = (int)posx / TILE_SIZE;
 	y = (int)posy /TILE_SIZE;
-	//printf("x ----- %d\ny ------- %d", x, y);
 	if (map[y][x] == 0)
 	{
-		//printf("x----%d y-------%d %d\n",x,y,map[y][x]);
 		return (-1);
 	}
 	return (1);
@@ -170,6 +210,7 @@ void	move()
 		g_player.y = new_posy;
 		g_player.x = new_posx;
 	}
+	draw_all_rays();
 	draw_player();
 	draw_line_of_player();
 	init_move();
@@ -213,11 +254,9 @@ int		main()
 	g_mlx.win = mlx_new_window(g_mlx.mlx, WIN_HEIGHT, WIN_WIDTH, "cub3D");
 	g_mlx.img = mlx_new_image(g_mlx.mlx, WIN_HEIGHT, WIN_WIDTH);
 
-	ft_rread();
+	//ft_rread();
 	init_player();
 	init_move();
-	//draw_player();
-	//move();
 	mlx_loop_hook(g_mlx.mlx,ft_depends,0);
 	mlx_loop(g_mlx.mlx);
 	return (0);
