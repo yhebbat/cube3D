@@ -20,13 +20,14 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 //# include "lbft/libft.h"
 # include "gnl/get_next_line.h"
 
 # define MAP_ROWS 16
 # define MAP_COLS 30
 
-const int	map[MAP_ROWS][MAP_COLS] = {
+ int	map[MAP_ROWS][MAP_COLS] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,1},
@@ -66,7 +67,9 @@ const int	map[MAP_ROWS][MAP_COLS] = {
 # define PLAYERLINE 50
 
 # define FOV_ANGLE (60 * (PI / 180))
-# define NUM_RAYS (WIN_WIDTH / 3)
+# define NUM_RAYS (WIN_WIDTH / 2)
+
+# define MINIMAP 0.2
 // THIS STRUCTURE IS MY MAIN MLX STRUCTURE
 typedef struct	s_mlx
 {
@@ -81,8 +84,8 @@ typedef struct	s_mlx
 
 typedef struct	s_player
 {
-	float			x;
-    float			y;
+	float		x;
+    float		y;
     float		rotation_angle; //PI/2
     float		rotation_speed; //3 * (pi / 180)
     int         walk_d;
@@ -90,16 +93,43 @@ typedef struct	s_player
 	float		move_speed; //3
     float       angle;
 }				t_player;
-
-/*typedef struct  s_move
+typedef struct  s_ray
 {
-    int         left;
-    int         right;
-    int         front;
-    int         back;
-}               t_move;*/
+    float       ray_angle;
+    float       wall_hitx;
+    float       wall_hity;
+    float		distance;
+    int         was_hit_v;
+    int			ray_facingup;
+	int			ray_facingdown;
+	int			ray_facingright;
+	int			ray_facingleft;
+	int			wall_hit_content;        
+}               t_ray;
+typedef struct	s_tray
+{
+    int			ray_facingup;
+	int			ray_facingdown;
+	int			ray_facingright;
+	int			ray_facingleft;
+	int			h_wallhit;
+	float		h_wallhit_x;
+	float		h_wallhit_y;
+	int			h_wallcontent;
+	float		inter_v_x;
+	float		inter_v_y;
+	float		inter_h_x;
+	float		inter_h_y;
+	int			v_wallhit;
+	float		v_wallhit_x;
+	float		v_wallhit_y;
+	int			v_wallcontent;
+	float		xtocheck;
+	float		ytocheck;
+}               t_tray;
 
-// t_move          g_move;
-t_mlx           g_mlx;
-t_player        g_player;
+t_tray          g_tray;
+t_ray			g_ray[NUM_RAYS];
+t_mlx			g_mlx;
+t_player		g_player;
 #endif
