@@ -13,22 +13,6 @@
 #include "get_next_line.h"
 #include <fcntl.h>
 
-char	*ft_strchr(const char *s, int c)
-{
-	int		i;
-	char	str;
-
-	str = (unsigned char)c;
-	i = 0;
-	while (s[i] != str)
-	{
-		if (s[i] == '\0')
-			return (0);
-		i++;
-	}
-	return ((char *)s + i);
-}
-
 int		remplir_line(char **line, char **str, int len)
 {
 	char	*tmp;
@@ -93,6 +77,7 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 	}
 	ret = ft_read(fd, &str);
+	//printf("%d\n",ret);
 	if (ret < 0)
 		return (-1);
 	while (str[len] != '\n' && str[len] != '\0')
@@ -105,15 +90,15 @@ int		get_next_line(int fd, char **line)
 		return (remplir_fin(line, &str));
 	return (0);
 }
-/*
-int	main()
-   {
-   char	*line;
-   int		fd;
-   fd = open("../map.cub", O_RDONLY);
-   line = NULL;
-   while (get_next_line(fd, &line))
-  	 printf("%s\n", line);
-//if (get_next_line(fd, &line))
-//	printf("%s\n", line);
-}*/
+// int	main()
+// {
+// 	char	*line;
+// 	int		fd;
+// 	int		k;
+
+// 	k = 0;
+// 	//line
+// 	fd = open("../map.cub", O_RDONLY);
+// 	get_next_line(fd, &line);
+// 	printf("%d\n", get_next_line(fd, &line));
+// }

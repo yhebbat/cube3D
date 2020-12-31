@@ -81,7 +81,7 @@ static char			**ft_remp(char **p, char const *s, char c)
 	return (p);
 }
 
-char				**ft_split(char const *s, char c)
+char				**ft_split(const char *s, char c)
 {
 	char	**p;
 

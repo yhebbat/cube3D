@@ -21,13 +21,15 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
-//# include "lbft/libft.h"
+# include "lbft/libft.h"
 # include "gnl/get_next_line.h"
+
+typedef char t_bool;
 
 # define MAP_ROWS 16
 # define MAP_COLS 30
 
- int	map[MAP_ROWS][MAP_COLS] = {
+int		map[MAP_ROWS][MAP_COLS] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
     {1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,0,1},
@@ -36,7 +38,7 @@
     {1,0,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
     {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-    {1,0,0,1,0,1,0,1,0,1,1,1,0,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,1},
+    {1,0,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,1},
     {1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1},
     {1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1},
     {1,0,0,1,1,1,1,1,0,1,1,1,0,1,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,1},
@@ -58,8 +60,8 @@
 
 # define TILE_SIZE 64
 
-# define WIN_WIDTH (MAP_ROWS * TILE_SIZE)
-# define WIN_HEIGHT (MAP_COLS * TILE_SIZE)
+# define WIN_WIDTH (MAP_COLS* TILE_SIZE)
+# define WIN_HEIGHT (MAP_ROWS * TILE_SIZE)
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
@@ -67,7 +69,7 @@
 # define PLAYERLINE 50
 
 # define FOV_ANGLE (60 * (PI / 180))
-# define NUM_RAYS (WIN_WIDTH / 2)
+# define NUM_RAYS WIN_WIDTH
 
 # define MINIMAP 0.2
 // THIS STRUCTURE IS MY MAIN MLX STRUCTURE
@@ -77,6 +79,7 @@ typedef struct	s_mlx
 	void		*win;
 	void		*img;
 	int			*addr;
+	int			*data;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -88,8 +91,8 @@ typedef struct	s_player
     float		y;
     float		rotation_angle; //PI/2
     float		rotation_speed; //3 * (pi / 180)
-    int         walk_d;
-    int         turn_d;
+	int			walk_d;
+	int			turn_d;
 	float		move_speed; //3
     float       angle;
 }				t_player;
@@ -116,6 +119,8 @@ typedef struct	s_tray
 	float		h_wallhit_x;
 	float		h_wallhit_y;
 	int			h_wallcontent;
+	float		h_hit_distance;
+	float		v_hit_distance;
 	float		inter_v_x;
 	float		inter_v_y;
 	float		inter_h_x;
@@ -127,9 +132,19 @@ typedef struct	s_tray
 	float		xtocheck;
 	float		ytocheck;
 }               t_tray;
+typedef	struct s_data
+{
+	int			win_width;
+	int			win_height;
+}				t_data;
 
+t_data			g_data;
 t_tray          g_tray;
 t_ray			g_ray[NUM_RAYS];
 t_mlx			g_mlx;
 t_player		g_player;
+
+void	drawing_3d(int i);
+float		normalize_angle(float	angle);
+float	distancebetweenpts(float xd, float yd, float xf, float yf);
 #endif
