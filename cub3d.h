@@ -6,7 +6,7 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 05:37:52 by yhebbat           #+#    #+#             */
-/*   Updated: 2020/11/27 05:37:53 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/01 15:15:14 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,5 @@ t_ray			g_ray[NUM_RAYS];
 t_mlx			g_mlx;
 t_player		g_player;
 
-void	drawing_3d(int i);
-float		normalize_angle(float	angle);
-float	distancebetweenpts(float xd, float yd, float xf, float yf);
+void			ft_render(int i);
 #endif

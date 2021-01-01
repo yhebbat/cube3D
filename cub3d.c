@@ -14,9 +14,10 @@
 //line : 265
 
 
-#include "mlx.h"
-#include "cub3d.h"
 
+#include "cub3d.h"
+float		normalize_angle(float	angle);
+float	distancebetweenpts(float xd, float yd, float xf, float yf);
 void	ft_jareb()
 {
 	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
@@ -30,24 +31,26 @@ void	my_mlx_pixel_put(int y, int x, int color)
 {
 	y *= MINIMAP;
 	x *= MINIMAP;
-	if (x >= 0 && x < (WIN_WIDTH * MINIMAP)&& y >= 0
-		&& y < (WIN_HEIGHT * MINIMAP))
+	if (x >= 0 && x < WIN_WIDTH && y >= 0
+		&& y < WIN_HEIGHT)
 		g_mlx.addr[(x + (y * WIN_WIDTH))] = color;
 }
 void	my_mlx_pixel_put_3d(int y, int x, int color)
 {
-	if (x >= 0 && x < WIN_WIDTH&& y >= 0
+	//y *= MINIMAP;
+	//x *= MINIMAP;;
+	if (x >= 0 && x < WIN_WIDTH && y >= 0
 		&& y < WIN_HEIGHT)
 		g_mlx.addr[(x + (y * WIN_WIDTH))] = color;
 }
 void	init_player()
 {
-	g_player.x = 24 * TILE_SIZE;
-	g_player.y = 13 * TILE_SIZE;
+	g_player.x = WIN_WIDTH / 2 - 64;
+	g_player.y = WIN_HEIGHT / 2;
 	g_player.rotation_angle = PI / 2;
 	g_player.rotation_speed = 3 * (PI / 180);
 	g_player.move_speed = 10;
-	g_player.angle = (PI / 180);
+	g_player.angle = PI / 2;
 }
 
 void	init_move()
@@ -136,8 +139,8 @@ void	draw_map()
         {
             if (map[y][x] == 1)
 				draw_morba3(y * TILE_SIZE, x * TILE_SIZE, 0xffff00);
-			// else
-			// 	draw_morba3(y * TILE_SIZE, x * TILE_SIZE, 0x000000);
+            // else
+            //     draw_morba3(j * TILE_SIZE, k * TILE_SIZE, 0xffffff);
             x++;
         }
         y++;
@@ -181,6 +184,7 @@ int		draw_player()
         }
         j--;
     }
+	draw_line_of_player();
 	return (0);
 }
 
@@ -202,27 +206,28 @@ void	draw_line_2(float y, float x, float y1, float x1,float ray_angle, int color
 		i++;
 	}
 }
-// void	draw_line(int Y0, int X0, int Y1, int X1, int color)
-// {
-// 	int		dx = X1 - X0;
-// 	int		dy = Y1 - Y0;
-// 	int		i = 0;
-// 	int		steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-// 	float	Xinc = dx / (float)steps;
-// 	float	Yinc = dy / (float)steps;
-// 	float	X = X0;
-// 	float	Y = Y0;
-// 	while (i < steps)
-// 	{
-// 		my_mlx_pixel_put(Y, X, color);
-// 		X += Xinc;
-// 		Y += Yinc;
-// 		i++;
-// 	}
-// }
+void	draw_line(int Y0, int X0, int Y1, int X1, int color)
+{
+	int		dx = X1 - X0;
+	int		dy = Y1 - Y0;
+	int		i = 0;
+	int		steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	float	Xinc = dx / (float)steps;
+	float	Yinc = dy / (float)steps;
+	float	X = X0;
+	float	Y = Y0;
+	while (i <= steps)
+	{
+		my_mlx_pixel_put(Y, X, color);
+		X += Xinc;
+		Y += Yinc;
+		i++;
+	}
+}
 float		normalize_angle(float	angle)
 {
-	angle = fmod(angle, TWO_PI);
+	while (angle > 2 * PI)
+		angle -= 2 * PI;
 	while (angle < 0)
 	{
 		angle = TWO_PI + angle;
@@ -249,6 +254,42 @@ float	distancebetweenpts(float xd, float yd, float xf, float yf)
 		return (INT_MAX);
 	return (sqrt((xf - xd) * (xf - xd) + (yd - yf) * (yd - yf)));
 }
+// void	horiz_inter(float ray_angle)
+// {
+// 	float	deltax;
+// 	float	deltay;
+// 	float	Xi;
+// 	float	Yi;
+
+// 	Yi = floor(g_player.y / TILE_SIZE) * TILE_SIZE;
+// 	Yi += g_tray.ray_facingdown ? TILE_SIZE : 0;
+// 	Xi = g_player.x + (Yi - g_player.y) / tan(ray_angle);
+// 	deltay = TILE_SIZE;
+// 	deltay *= g_tray.ray_facingup ? -1 : 1;
+// 	deltax = TILE_SIZE / tan(ray_angle);
+// 	deltax *= (g_tray.ray_facingleft && deltax > 0) ? -1 : 1;
+// 	deltax *= (g_tray.ray_facingright && deltax < 0) ? -1 : 1;
+// 	g_tray.inter_h_x = Xi;
+// 	g_tray.inter_h_y = Yi + (g_tray.ray_facingup ? -1 : 0);
+// 	while (g_tray.inter_h_x >= 0 && g_tray.inter_h_x <= WIN_HEIGHT && g_tray.inter_h_y >= 0 && g_tray.inter_h_y <= WIN_WIDTH)
+// 	{
+// 		g_tray.xtocheck = g_tray.inter_h_x / TILE_SIZE;
+// 		g_tray.ytocheck = g_tray.inter_h_y / TILE_SIZE;
+
+// 		if (wall_collision(g_tray.xtocheck, g_tray.ytocheck))
+// 		{
+// 			g_tray.h_wallhit_x = g_tray.inter_h_x;
+// 			g_tray.h_wallhit_y = g_tray.inter_h_y;
+// 			g_tray.h_wallhit = 1;
+// 			break ;
+// 		}
+// 		else
+// 		{
+// 			g_tray.inter_h_y += deltay;
+// 			g_tray.inter_h_x += deltax;
+// 		}
+// 	}
+// }
 void	init_rays()
 {	    
 	g_tray.ray_facingup = 0;			
@@ -357,14 +398,14 @@ void	verti_inter(float ray_angle)
 }
 void	check_angle(float angle)
 {
-	if (angle > 0 && angle < M_PI)
-		g_tray.ray_facingdown = 1;
-	else
+	if (angle > PI)
 		g_tray.ray_facingup = 1;
-	if (angle < M_PI / 2 || angle  > ((3 * M_PI) / 2))
-		g_tray.ray_facingright = 1;
+	else
+		g_tray.ray_facingdown = 1;
+	if (angle > PI / 2 && angle < 3 * PI / 2)
+		g_tray.ray_facingleft = 1;
   	else
-      g_tray.ray_facingleft = 1;
+      g_tray.ray_facingright = 1;
 }
 void	cast_ray(float ray_angle, int strip_id)
 {
@@ -374,8 +415,12 @@ void	cast_ray(float ray_angle, int strip_id)
 	verti_inter(ray_angle);
 	if (g_tray.h_wallhit)
 		g_tray.h_hit_distance = distancebetweenpts(g_player.x, g_player.y, g_tray.h_wallhit_x, g_tray.h_wallhit_y);
+	else
+		g_tray.h_hit_distance = INT_MAX;
 	if (g_tray.v_wallhit)
 		g_tray.v_hit_distance = distancebetweenpts(g_player.x, g_player.y, g_tray.v_wallhit_x, g_tray.v_wallhit_y);
+	else
+		g_tray.v_hit_distance = INT_MAX;
 	if (g_tray.v_hit_distance < g_tray.h_hit_distance)
 	{
 		g_ray[strip_id].distance = g_tray.v_hit_distance;
@@ -409,74 +454,13 @@ void	cast_all_rays()
 	{
 		init_rays();
 		cast_ray(ray_angle, strip_id);
-		drawing_3d(strip_id);
+		ft_render(strip_id);
 		ray_angle += FOV_ANGLE / NUM_RAYS;
 		draw_line_2(g_player.y, g_player.x, g_ray[strip_id].wall_hity, g_ray[strip_id].wall_hitx, ray_angle, 0xfffff);
 		strip_id++;
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////DESSINER LES MURS///////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-void	draw_ceiling(int start, int i)
-{
-	int f;
 
-	f = 0;
-	if (start < 0)
-		start = 0;
-	while (f <= start)
-	{
-		my_mlx_pixel_put_3d(f, i, 0x0099ff);
-		f++;
-	}
-}
-void	draw_walls(int start, int end, int i)
-{
-	if (start < 0)
-		start = 0;
-	if (end > WIN_HEIGHT)
-		end = WIN_HEIGHT;
-	while (start <= end)
-	{
-		my_mlx_pixel_put_3d(start, i, 0x996633);
-		start++;
-	}
-	
-}
-void	draw_floor(int end, int i)
-{
-	if (end > WIN_HEIGHT)
-		end = WIN_HEIGHT;
-	while (end < WIN_HEIGHT)
-	{
-		my_mlx_pixel_put_3d(end, i, 0x333300);
-		end++;
-	}
-	
-}
-void	drawing_3d(int i)
-{
-	float	rw_distance;
-	int		rw_height;
-	float	dpp;
-	float	pw_height;
-	int		start;
-	int		end;
-
-	rw_height = TILE_SIZE;
-	dpp = WIN_WIDTH / (2 * tan(FOV_ANGLE / 2));
-	rw_distance = g_ray[i].distance * cos(g_ray[i].ray_angle - g_player.rotation_angle);
-	pw_height = (rw_height * dpp) / rw_distance;
-	start = (WIN_HEIGHT / 2 ) - (pw_height / 2);
-	end = (WIN_HEIGHT / 2 ) + (pw_height / 2);
-	draw_ceiling(start, i);
-	draw_walls(start, end, i);
-	draw_floor(end, i);
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////
 void	ft_move()
 {
 	float	move_step;
@@ -484,6 +468,7 @@ void	ft_move()
 	float	new_posy;
 
 	ft_jareb();
+	g_player.rotation_angle = normalize_angle(g_player.rotation_angle);
 	move_step = g_player.move_speed * g_player.walk_d;
 	new_posy = g_player.y + sin(g_player.rotation_angle) * move_step;
 	new_posx = g_player.x + cos(g_player.rotation_angle) * move_step;
@@ -492,12 +477,66 @@ void	ft_move()
 		g_player.y = new_posy;
 		g_player.x = new_posx;
 	}
+	g_player.rotation_angle += g_player.turn_d * g_player.rotation_speed;
+	g_player.rotation_angle = normalize_angle(g_player.rotation_angle);
 	cast_all_rays();
 	draw_map();
 	draw_player();
-	draw_line_of_player();
 }
 
+//////////////////////////////////////////////// RENDERING ///////////////////////////
+
+void	render_ceiling(int start, int i)
+{
+	int	c;
+	
+	c = -1;
+	while (++c < start)
+	{
+		my_mlx_pixel_put_3d(c, i, 0xff0000);
+	}
+}
+
+void	render_floor(int bot, int i)
+{
+	while (bot < WIN_HEIGHT)
+	{
+		my_mlx_pixel_put_3d(bot, i, 0x0000ff);
+		bot++;
+	}
+}
+
+void	render_wall(int bot, int start, int i)
+{
+	start--;
+	while (++start < bot)
+	{
+		my_mlx_pixel_put_3d(start, i, 0x00ff00);
+	}
+}
+
+void	ft_render(int i)
+{
+	float	wall_h;
+	int		dp;
+	int		start;
+	int		bot;
+
+
+		dp = (WIN_WIDTH / 2) * tan(FOV_ANGLE / 2);
+
+		g_ray[i].distance *= cos(normalize_angle(g_player.rotation_angle - g_ray[i].ray_angle));
+		wall_h = (TILE_SIZE / g_ray[i].distance) * dp;
+		start = (WIN_HEIGHT / 2) - (wall_h / 2);
+		start = (start < 0) ? 0 : start;
+		bot = (WIN_HEIGHT / 2) + (wall_h / 2);
+		bot = (bot > WIN_HEIGHT) ? WIN_HEIGHT : bot;
+		//bot = (start + wall_h < WIN_HEIGHT) ? start + wall_h : WIN_HEIGHT;
+		render_ceiling(start, i);
+		render_wall(bot, start, i);
+		render_floor(bot, i);
+}
+//////////////////////////////////////////////////
 int		ft_depends()
 {
 	mlx_hook(g_mlx.win, 2, 0, key_press, 0);
@@ -506,6 +545,7 @@ int		ft_depends()
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_mlx.img, 0, 0);
 	return (0);
 }
+
 
 int		main()
 {
