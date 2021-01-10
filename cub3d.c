@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 int		hell[MAP_ROWS][MAP_COLS] = {
     {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -34,7 +35,7 @@ void	ft_jareb()
 {
 	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
 	mlx_clear_window(g_mlx.mlx, g_mlx.win);
-	g_mlx.img = mlx_new_image(g_mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	g_mlx.img = mlx_new_image(g_mlx.mlx, g_data.win_width, g_data.win_height);
 	g_mlx.addr = (int *)mlx_get_data_addr(g_mlx.img,
 		&g_mlx.bpp, &g_mlx.size_line, &g_mlx.endian);
 }
@@ -116,12 +117,34 @@ void	ft_move()
 	draw_player();
 }
 
-int		main()
+int		main(int ac, char **av)
 {
+	if (ac > 3 || ac < 2)
+	{
+		ft_error("Error\nLe Nombre d'argument en compilation est faut");
+		return(0);
+	}
+	ft_check_extention(av[1]);
+	ft_data_init();
+	ft_check_file(av[1]);
 	init_mlx();
 	init_player();
 	init_move();
 	mlx_loop_hook(g_mlx.mlx, ft_depends, (void*)0);
+	
+	printf("%d ------------------ %d\n", g_data.win_height, g_data.win_width);
+	printf("\n\n\n");
+	int i = -1;
+	while (++i < 3)
+	{
+		printf("%d ------------------ %d\n", g_color[i].color_f, g_color[i].color_c);
+	}
+    i = 0;
+    while (i < 5)
+	{
+		printf("%s ------------------ \n", g_textures[i].texture);
+		i++;
+	}
 	mlx_loop(g_mlx.mlx);
 	return (0);
 }

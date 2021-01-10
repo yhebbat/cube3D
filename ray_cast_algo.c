@@ -1,4 +1,5 @@
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	remplir_gray(float ray_angle, int strip_id)
 {
@@ -49,12 +50,12 @@ void	cast_all_rays()
 
 	strip_id = 0;
 	ray_angle = g_player.rotation_angle  - (FOV_ANGLE / 2);
-	while (strip_id < NUM_RAYS)
+	while (strip_id < g_data.win_width)
 	{
 		init_rays();
 		cast_ray(ray_angle, strip_id);
 		ft_render(strip_id);
-		ray_angle += FOV_ANGLE / NUM_RAYS;
+		ray_angle += FOV_ANGLE / g_data.win_width;
 		draw_line_2(g_player.y, g_player.x, g_ray[strip_id].wall_hity, g_ray[strip_id].wall_hitx, ray_angle, 0xfffff);
 		strip_id++;
 	}

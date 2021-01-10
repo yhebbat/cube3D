@@ -1,9 +1,10 @@
 # include "cub3d.h"
+# include "get_next_line.h"
 
 void	init_player()
 {
-	g_player.x = WIN_WIDTH / 2 - 64;
-	g_player.y = WIN_HEIGHT / 2;
+	g_player.x = g_data.win_width / 2 - 64;
+	g_player.y = g_data.win_height / 2;
 	g_player.rotation_angle = PI / 2;
 	g_player.rotation_speed = 3 * (PI / 180);
 	g_player.move_speed = 5;
@@ -43,6 +44,6 @@ void	init_rays()
 void	init_mlx()
 {
 	g_mlx.mlx = mlx_init();
-	g_mlx.win = mlx_new_window(g_mlx.mlx, WIN_WIDTH, WIN_HEIGHT, "cub3D");
-	g_mlx.img = mlx_new_image(g_mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	g_mlx.win = mlx_new_window(g_mlx.mlx, g_data.win_width, g_data.win_height, "cub3D");
+	g_mlx.img = mlx_new_image(g_mlx.mlx, g_data.win_width, g_data.win_height);
 }

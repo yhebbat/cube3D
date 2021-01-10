@@ -22,7 +22,7 @@
 # include <stdio.h>
 # include <limits.h>
 //# include "lbft/libft.h"
-//# include "gnl/get_next_line.h"
+# include "get_next_line.h"
 
 // typedef char t_bool;
 
@@ -55,6 +55,7 @@
 # define NUM_RAYS WIN_WIDTH
 
 # define MINIMAP 0.2
+
 // THIS STRUCTURE IS MY MAIN MLX STRUCTURE
 typedef struct	s_mlx
 {
@@ -115,13 +116,7 @@ typedef struct	s_tray
 	float		xtocheck;
 	float		ytocheck;
 }               t_tray;
-typedef	struct s_data
-{
-	int			win_width;
-	int			win_height;
-}				t_data;
 
-t_data			g_data;
 t_tray          g_tray;
 t_ray			g_ray[NUM_RAYS];
 t_mlx			g_mlx;
