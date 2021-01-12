@@ -6,7 +6,7 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 05:37:52 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/01 15:15:14 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/11 15:58:44 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <limits.h>
-//# include "lbft/libft.h"
 # include "get_next_line.h"
-
-// typedef char t_bool;
 
 # define MAP_ROWS 16
 # define MAP_COLS 30
-
-
 
 # define W_KEY 13
 # define S_KEY 1
@@ -43,20 +38,25 @@
 
 # define TILE_SIZE 64
 
-# define WIN_WIDTH (MAP_COLS* TILE_SIZE)
-# define WIN_HEIGHT (MAP_ROWS * TILE_SIZE)
+# define WIN_WIDTH (MAP_COLS * TILE_SIZE)
 
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 # define RAYON 5
 # define PLAYERLINE 50
 
-# define FOV_ANGLE (60 * (PI / 180))
+# define FOV_ANGLE 1.04719755
+
+/*
+**(60 * (PI / 180))
+*/
 # define NUM_RAYS WIN_WIDTH
 
 # define MINIMAP 0.2
 
-// THIS STRUCTURE IS MY MAIN MLX STRUCTURE
+/*
+**THIS STRUCTURE IS MY MAIN MLX STRUCTURE
+*/
 typedef struct	s_mlx
 {
 	void		*mlx;
@@ -72,30 +72,32 @@ typedef struct	s_mlx
 typedef struct	s_player
 {
 	float		x;
-    float		y;
-    float		rotation_angle; //PI/2
-    float		rotation_speed; //3 * (pi / 180)
+	float		y;
+	float		rotation_angle;
+	float		rotation_speed;
 	int			walk_d;
 	int			turn_d;
-	float		move_speed; //3
-    float       angle;
+	float		move_speed;
+	float		angle;
 }				t_player;
-typedef struct  s_ray
+
+typedef struct	s_ray
 {
-    float       ray_angle;
-    float       wall_hitx;
-    float       wall_hity;
-    float		distance;
-    int         was_hit_v;
-    int			ray_facingup;
+	float		ray_angle;
+	float		wall_hitx;
+	float		wall_hity;
+	float		distance;
+	int			was_hit_v;
+	int			ray_facingup;
 	int			ray_facingdown;
 	int			ray_facingright;
 	int			ray_facingleft;
-	int			wall_hit_content;        
-}               t_ray;
+	int			wall_hit_content;
+}				t_ray;
+
 typedef struct	s_tray
 {
-    int			ray_facingup;
+	int			ray_facingup;
 	int			ray_facingdown;
 	int			ray_facingright;
 	int			ray_facingleft;
@@ -115,9 +117,9 @@ typedef struct	s_tray
 	int			v_wallcontent;
 	float		xtocheck;
 	float		ytocheck;
-}               t_tray;
+}				t_tray;
 
-t_tray          g_tray;
+t_tray			g_tray;
 t_ray			g_ray[NUM_RAYS];
 t_mlx			g_mlx;
 t_player		g_player;
@@ -142,8 +144,9 @@ void			ft_move();
 void			draw_morba3(int j, int k, int color);
 void			draw_line_of_player();
 int				draw_player();
-void			draw_line_2(float y, float x, float y1, float x1,float ray_angle, int color);
-void			draw_line(int Y0, int X0, int Y1, int X1, int color);
+void			draw_line_2(float y, float x, float y1, float x1,
+					float ray_angle, int color);
+void			draw_line(int y0, int x0, int y1, int x1, int color);
 void			check_angle(float angle);
 int				wall_collision(float x, float y);
 int				check_wall(float posy, float posx);

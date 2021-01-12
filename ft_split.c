@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include "get_next_line.h"
+# include "cub3d.h"
+# include "get_next_line.h"
 
 static int			ft_mots(char const *s, char c)
 {

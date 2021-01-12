@@ -92,6 +92,7 @@ void	ft_check_resolution(char *str)
 		ft_error("Error\nun faut caractere apres le R");
 	g_data.win_height = ft_atoi(data[1]);
 	g_data.win_width = ft_atoi(data[2]);
+	g_mapindicator++;
 }
 
 void	ft_color(char **color, char *str)
@@ -154,6 +155,7 @@ void	ft_check_colors(char *str)
 			g_color[i].color_c = ft_atoi(color[i]);
 		i++;
 	}
+	g_mapindicator++;
 }
 
 void	ft_check_textures(char *str)
@@ -180,27 +182,164 @@ void	ft_check_textures(char *str)
         g_textures[WE].texture = data[1];
 	else
 		ft_error("Error\nun faut caractere");
+	g_mapindicator++;
+}
+
+int		ft_condition_textures(char *str)
+{
+	if (*str ==  'N' && *(str + 1) == 'O')
+		return (1);
+	if (*str ==  'S' && *(str + 1) == 'O')
+		return (1);
+	if (*str ==  'W' && *(str + 1) == 'E')
+		return (1);
+	if (*str ==  'E' && *(str + 1) == 'A')
+		return (1);
+	if (*str ==  'S' && *(str + 1) == ' ')
+		return (1);
+	return (0);
+}
+void	ft_readfile(char *line)
+{
+		if (*line == 'R' && *(line + 1) == ' ')
+			ft_check_resolution(line);
+		else if ((*line == 'F' || *line == 'C') && *(line + 1) == ' ')
+			ft_check_colors(line);
+		else if (ft_condition_textures(line))
+		    ft_check_textures(line);
+		// if (*line != '\0')
+			// ft_error("error\nfaut caractere au debut d'une ligne");
+}
+
+void	free_list(void)
+{
+	while (g_file != NULL)
+	{
+		g_temp = g_file;
+		g_file = g_file->next;
+		free(g_temp->content);
+		free(g_temp);
+	}
+}
+
+
+int		ft_firstcharofmap(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		while (str[i] == ' ')
+			i++;
+		if (str[i] == '1' || str[i] == '0')
+			return (1);
+		else
+			break ;
+	}
+	return (0);
+}
+
+char	*spacer(char *buff, int size)
+{
+	char	*str;
+	int		i;
+	int		j;
+
+	if (!(str = malloc(sizeof(char) * (size + 1))))
+		return (0);
+	i = 0;
+	str[i] = ' ';
+	i++;
+	j = 0;
+	while (buff[j])
+	{
+		str[i] = buff[j];
+		j++;
+		i++;
+	}
+	while (i < size)
+	{
+		str[i] = ' ';
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*space_filler(int size)
+{
+	char	*str;
+	int		i;
+
+	if (!(str = malloc(sizeof(char) * (size + 1))))
+		return (0);
+	i = 0;
+	while (i < size)
+	{
+		str[i] = ' ';
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+void	ft_readmap(void)
+{
+	int		i;
+
+	g_sizeofmap = 0;
+	g_biglen = 0;
+	g_temp = g_file;
+	g_str = NULL;
+	while (g_temp)
+	{
+		g_str = g_temp->content;
+		if (ft_firstcharofmap(g_str))
+		{
+			g_sizeofmap++;
+			if (ft_strlen(g_str) > (size_t)g_biglen)
+				g_biglen = ft_strlen(g_str);
+		}
+		g_temp = g_temp->next;
+	}
+	g_sizeofmap += 2;
+	g_biglen += 2;
+	if (!(g_map = (char **)malloc(sizeof(char *) * (g_sizeofmap + 1))))
+		return ;
+	g_map[0] = space_filler(g_biglen);
+	g_temp = g_file;
+	g_str = NULL;
+	i = 1;
+	while (g_temp)
+	{
+		g_str = g_temp->content;
+		if (ft_firstcharofmap(g_str))
+			g_map[i++] = spacer(g_str, g_biglen);
+		g_temp = g_temp->next;
+	}
+	g_map[i++] = space_filler(g_biglen);
+	g_map[i] = NULL;
+	free_list();
 }
 
 void	ft_check_file(char *str)
 {
 	int		fd;
+	int		n;
 	char	*line;
 
+	g_mapindicator = 0;
+	n = 1;
 	if ((fd = open(str, O_RDONLY)) == -1)
 		ft_error("error file");
-	while (get_next_line(fd, &line))
+	while (n != 0)
 	{
-		if (*line == 'R')
-			ft_check_resolution(line);
-		else if (*line == 'F' || *line == 'C')
-			ft_check_colors(line);
-		// else if (ft_strchr("NEWS", line[0]) && ft_strchr("EOA ", line[1]))
-			// ft_check_textures(line);
-		else if ((*line == 'N'||*line == 'W'||*line == 'E'||*line == 'S') &&  (*(line + 1) == 'E'||*(line + 1) == 'O'||*(line + 1) == 'A'||*(line + 1) == 32))
-		    ft_check_textures(line);
-		else if (*line != '\0')
-			ft_error("error\nspace in the beginning of the line");
+		n = get_next_line(fd, &line);
+		ft_readfile(line);
+		ft_lstadd_back(&g_file, ft_lstnew(line));
 		free(line);
 	}
+	if (g_mapindicator == 8)
+		ft_readmap();
 }

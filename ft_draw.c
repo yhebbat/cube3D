@@ -1,4 +1,6 @@
 # include "cub3d.h"
+# include "get_next_line.h"
+
 
 void	draw_line(int Y0, int X0, int Y1, int X1, int color)
 {

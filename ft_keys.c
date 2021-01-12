@@ -1,4 +1,5 @@
 # include "cub3d.h"
+# include "get_next_line.h"
 
 int		key_press(int key)
 {

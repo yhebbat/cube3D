@@ -1,12 +1,15 @@
-R      1024 1920
-
-
-
-
+R 1024 1920
 C 225,30,0
 F 220,100,0
 NO ./path_to_the_north_texture.xpm
 SO ./path_to_the_south_texture.xpm
 WE ./path_to_the_west_texture.xpm
 EA ./path_to_the_east_texture.xpm
-S ./path_to_the_sprite_texture.xpm
+S ./path_to_the_sprite.xpm
+
+
+        1111111111111111111
+        1E00000000002011111
+        100000000000011
+1111111110000001010101
+1111111111111111111111

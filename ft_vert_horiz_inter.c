@@ -1,4 +1,5 @@
 # include "cub3d.h"
+# include "get_next_line.h"
 
 void	horiz_inter(float ray_angle)
 {
@@ -23,7 +24,7 @@ void	horiz_inter(float ray_angle)
 	g_tray.inter_h_y = Yi;
 	if (g_tray.ray_facingup)
 		g_tray.inter_h_y--;
-	while (g_tray.inter_h_x >= 0 && g_tray.inter_h_x <= WIN_WIDTH && g_tray.inter_h_y >= 0 && g_tray.inter_h_y <= WIN_HEIGHT)
+	while (g_tray.inter_h_x >= 0 && g_tray.inter_h_x <= WIN_WIDTH && g_tray.inter_h_y >= 0 && g_tray.inter_h_y <= g_data.win_height)
 	{
 		g_tray.xtocheck = g_tray.inter_h_x;
 		g_tray.ytocheck = g_tray.inter_h_y;
@@ -65,7 +66,7 @@ void	verti_inter(float ray_angle)
 	g_tray.inter_v_y = Yi;
 	if (g_tray.ray_facingleft)
 		g_tray.inter_v_x--;
-	while (g_tray.inter_v_x >= 0 && g_tray.inter_v_x <= WIN_WIDTH && g_tray.inter_v_y >= 0 && g_tray.inter_v_y <= WIN_HEIGHT)
+	while (g_tray.inter_v_x >= 0 && g_tray.inter_v_x <= WIN_WIDTH && g_tray.inter_v_y >= 0 && g_tray.inter_v_y <= g_data.win_height)
 	{
 		g_tray.xtocheck = g_tray.inter_v_x;
 		g_tray.ytocheck = g_tray.inter_v_y;

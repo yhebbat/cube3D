@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	my_mlx_pixel_put(int y, int x, int color)
 {
 	y *= MINIMAP;
 	x *= MINIMAP;
 	if (x >= 0 && x < WIN_WIDTH && y >= 0
-		&& y < WIN_HEIGHT)
+		&& y < g_data.win_height)
 		g_mlx.addr[(x + (y * WIN_WIDTH))] = color;
 }
 
@@ -25,7 +26,7 @@ void	my_mlx_pixel_put_3d(int y, int x, int color)
 {
 
 	if (x >= 0 && x < WIN_WIDTH && y >= 0
-		&& y < WIN_HEIGHT)
+		&& y < g_data.win_height)
 		g_mlx.addr[(x + (y * WIN_WIDTH))] = color;
 }
 
