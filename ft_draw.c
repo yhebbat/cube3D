@@ -1,34 +1,56 @@
-# include "cub3d.h"
-# include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_draw.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 19:12:14 by yhebbat           #+#    #+#             */
+/*   Updated: 2021/01/21 15:29:05 by yhebbat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "cub3d.h"
 
-void	draw_line(int Y0, int X0, int Y1, int X1, int color)
+void		draw_line(int y0, int x0, int y1, int x1, int color)
 {
-	int		dx = X1 - X0;
-	int		dy = Y1 - Y0;
-	int		i = 0;
-	int		steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-	float	Xinc = dx / (float)steps;
-	float	Yinc = dy / (float)steps;
-	float	X = X0;
-	float	Y = Y0;
+	int		dx;
+	int		dy;
+	int		i;
+	int		steps;
+	float	xinc;
+	float	yinc;
+	float	x;
+	float	y;
+
+	dx = x1 - x0;
+	dy = y1 - y0;
+	i = 0;
+	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
+	xinc = dx / (float)steps;
+	yinc = dy / (float)steps;
+	x = x0;
+	y = y0;
 	while (i <= steps)
 	{
-		my_mlx_pixel_put(Y, X, color);
-		X += Xinc;
-		Y += Yinc;
+		my_mlx_pixel_put(y, x, color);
+		x += xinc;
+		y += yinc;
 		i++;
 	}
 }
 
-void	draw_line_2(float y, float x, float y1, float x1,float ray_angle, int color)
+void		draw_line_2(float y, float x, float y1, float x1, float ray_angle, int color)
 {
-	int dist = distancebetweenpts(x, y, x1, y1);
-	float i;
-	float j = y;
-	float c = x;
+	int		dist;
+	float	i;
+	float	j;
+	float	c;
 
+	j = y;
+	c = x;
 	i = 0;
+	dist = distancebetweenpts(x, y, x1, y1);
 	ray_angle = normalize_angle(ray_angle);
 	while (i < dist)
 	{
@@ -39,32 +61,30 @@ void	draw_line_2(float y, float x, float y1, float x1,float ray_angle, int color
 	}
 }
 
-int		draw_player()
+void		draw_player(void)
 {
+	float	j;
+	float	zb;
+	float	x;
+	float	y;
 
-    float   j;
-    float   zb;
-    float   x;
-    float   y;
-
-    j = RAYON;
-    while (j > 0)
-    {
-        zb = 0;
-        while (zb <= 360)
-        {
-            x = g_player.x + j * cos(zb * g_player.angle);
-            y = g_player.y + j * sin(zb * g_player.angle);
-            my_mlx_pixel_put(y, x, 0xff0000);
-            zb += 0.1;
-        }
-        j--;
-    }
+	j = RAYON;
+	while (j > 0)
+	{
+		zb = 0;
+		while (zb <= 360)
+		{
+			x = g_player.x + j * cos(zb * g_player.angle);
+			y = g_player.y + j * sin(zb * g_player.angle);
+			my_mlx_pixel_put(y, x, 0xff0000);
+			zb += 0.1;
+		}
+		j--;
+	}
 	draw_line_of_player();
-	return (0);
 }
 
-void	draw_line_of_player()
+void		draw_line_of_player(void)
 {
 	int		k;
 	float	y;
@@ -81,7 +101,7 @@ void	draw_line_of_player()
 	}
 }
 
-void	draw_morba3(int j, int k, int color)
+void		draw_morba3(int j, int k, int color)
 {
 	int		x;
 	int		y;
@@ -92,7 +112,7 @@ void	draw_morba3(int j, int k, int color)
 	while (j < y)
 	{
 		c = k;
-		while(c < x)
+		while (c < x)
 		{
 			my_mlx_pixel_put(j, c, color);
 			c++;

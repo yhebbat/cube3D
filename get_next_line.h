@@ -33,6 +33,7 @@ typedef	struct	s_textures
 {
 	int			text_width;
 	int			text_height;
+	int			*text;
 	char		*texture;
 }				t_textures;
 
@@ -54,6 +55,18 @@ typedef	struct	s_color
 	int			color_c;
 }				t_color;
 
+typedef struct	s_sprite
+{
+	void		*ptr;
+	int			*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	float		x;
+	float		y;
+	float		distance;
+}				t_sprite;
+
 // MAP
 char			**g_map;
 t_list			*g_file;
@@ -61,6 +74,10 @@ t_list			*g_temp;
 int				g_sizeofmap;
 int				g_biglen;
 char 			*g_str;
+t_sprite		**g_sprite;
+
+// SPT
+t_sprite		**g_sprite;
 
 // MAP INDICATOR TO START THE INIT OF THE MAP
 int				g_mapindicator;
@@ -93,11 +110,20 @@ void			ft_check_colors(char *str);
 void			ft_check_textures(char *str);
 void			ft_check_file(char *str);
 
+
+void    		ft_get_textures(void);
+void    		get_no(void);
 // Linked list AND MAP
 void			free_list(void);
 char			*spacer(char *buff, int size);
 char			*space_filler(int size);
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_back(t_list **alst, t_list *new);
+
+// SPRITE
+void			ft_sprite(void);
+void			init_sprite(void);
+
+int				g_sprite_c;
 
 #endif

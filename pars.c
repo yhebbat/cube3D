@@ -6,41 +6,41 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 14:50:08 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/09 15:31:05 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/21 18:00:04 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "get_next_line.h"
 
-void	ft_error(char *str)
+void		ft_error(char *str)
 {
 	write(1, str, ft_strlen(str));
 	write(1, "\n", 1);
 	exit(0);
 }
 
-void	ft_check_extention(char *str)
+void		ft_check_extention(char *str)
 {
-	int i;
+	int		i;
 
 	i = ft_strlen(str) - 4;
 	if (ft_strncmp(str + i, ".cub", 5) != 0)
 		ft_error("Error\nle fichier ne fini pas par .cub");
 }
 
-void	ft_check_xpm(char *str)
-{
-	int i;
+/*
+**void	ft_check_xpm(char *str)
+**{
+**int i;
+**i = ft_strlen(str) - 4;
+**if (ft_strncmp(str + i, ".xpm", 5) != 0)
+** ft_error("Error\nle fichier ne fini pas par .xpm");
+**}
+*/
 
-	i = ft_strlen(str) - 4;
-	if (ft_strncmp(str + i, ".xpm", 5) != 0)
-		ft_error("Error\nle fichier ne fini pas par .xpm");
-}
-
-void	ft_data_init(void)
+void		ft_data_init(void)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	g_data.win_width = -1;
@@ -61,20 +61,11 @@ void	ft_data_init(void)
 	}
 }
 
-void	ft_check_resolution(char *str)
+void		ft_check_resolution_error(char *str, char **data)
 {
-	char	**data;
 	int		i;
 	int		j;
 
-	i = 0;
-	if (g_data.win_height != (-1) && g_data.win_width != (-1))
-		ft_error("Error\nVous avez donner plus qu'une resolution");
-	data = ft_split(str, ' ');
-	while (data[i])
-		i++;
-	if (i != 3)
-		ft_error("Error\nUn Probleme Dans La Resolution");
 	i = 0;
 	if (*(str + 1) == ' ')
 	{
@@ -84,18 +75,34 @@ void	ft_check_resolution(char *str)
 			while (data[i][++j])
 			{
 				if (data[i][j] < '0' || data[i][j] > '9')
-					ft_error("La Resolution N'est Pas Bien Defini");
+					ft_error("Error\nLa Resolution N'est Pas Bien Defini");
 			}
 		}
 	}
 	else
 		ft_error("Error\nun faut caractere apres le R");
-	g_data.win_height = ft_atoi(data[1]);
-	g_data.win_width = ft_atoi(data[2]);
+}
+
+void		ft_check_resolution(char *str)
+{
+	char	**data;
+	int		i;
+
+	i = 0;
+	if (g_data.win_height != (-1) && g_data.win_width != (-1))
+		ft_error("Error\nVous avez donner plus qu'une resolution");
+	data = ft_split(str, ' ');
+	while (data[i])
+		i++;
+	if (i != 3)
+		ft_error("Error\nUn Probleme Dans La Resolution");
+	ft_check_resolution_error(str, data);
+	g_data.win_height = ft_atoi(data[2]);
+	g_data.win_width = ft_atoi(data[1]);
 	g_mapindicator++;
 }
 
-void	ft_color(char **color, char *str)
+void		ft_color(char **color, char *str)
 {
 	int		i;
 	int		j;
@@ -124,18 +131,16 @@ void	ft_color(char **color, char *str)
 		ft_error("Error\nun faut caractere apres le F ou C");
 }
 
-void	ft_check_colors(char *str)
+/*
+ **traiter la multiplication des couleurs
+*/
+
+void		ft_check_colors(char *str)
 {
 	char	**data;
 	char	**color;
 	int		i;
 
-	i = -1;
-	/*while (++i < 3)
-	{
-		if (g_color[i].color_c != (-1) && g_color[i].color_f != (-1))
-			ft_error("Error\nVous avez donner plus qu'une resolution");
-	}*/
 	i = 0;
 	data = ft_split(str, ' ');
 	while (data[i])
@@ -158,7 +163,7 @@ void	ft_check_colors(char *str)
 	g_mapindicator++;
 }
 
-void	ft_check_textures(char *str)
+void		ft_check_textures(char *str)
 {
 	char	**data;
 	int		i;
@@ -169,49 +174,47 @@ void	ft_check_textures(char *str)
 		i++;
 	if (i != 2)
 		ft_error("Error :o");
-    ft_check_xpm(data[1]);
-    if (*str == 'S' && *(str + 1) == 32)
-        g_textures[S].texture = data[1];
-    else if (*str == 'S' && *(str + 1) == 'O')
-        g_textures[SO].texture = data[1];
-    else if (*str == 'E' && *(str + 1) == 'A')
-        g_textures[EA].texture = data[1];
-    else if (*str == 'N' && *(str + 1) == 'O')
-        g_textures[NO].texture = data[1];
-    else if (*str == 'W' && *(str + 1) == 'E')
-        g_textures[WE].texture = data[1];
+	if (*str == 'S' && *(str + 1) == 32)
+		g_textures[S].texture = ft_strdup(data[1]);
+	else if (*str == 'S' && *(str + 1) == 'O')
+		g_textures[SO].texture = ft_strdup(data[1]);
+	else if (*str == 'E' && *(str + 1) == 'A')
+		g_textures[EA].texture = ft_strdup(data[1]);
+	else if (*str == 'N' && *(str + 1) == 'O')
+		g_textures[NO].texture = ft_strdup(data[1]);
+	else if (*str == 'W' && *(str + 1) == 'E')
+		g_textures[WE].texture = ft_strdup(data[1]);
 	else
 		ft_error("Error\nun faut caractere");
 	g_mapindicator++;
 }
 
-int		ft_condition_textures(char *str)
+int			ft_condition_textures(char *str)
 {
-	if (*str ==  'N' && *(str + 1) == 'O')
+	if (*str == 'N' && *(str + 1) == 'O')
 		return (1);
-	if (*str ==  'S' && *(str + 1) == 'O')
+	if (*str == 'S' && *(str + 1) == 'O')
 		return (1);
-	if (*str ==  'W' && *(str + 1) == 'E')
+	if (*str == 'W' && *(str + 1) == 'E')
 		return (1);
-	if (*str ==  'E' && *(str + 1) == 'A')
+	if (*str == 'E' && *(str + 1) == 'A')
 		return (1);
-	if (*str ==  'S' && *(str + 1) == ' ')
+	if (*str == 'S' && *(str + 1) == ' ')
 		return (1);
 	return (0);
 }
-void	ft_readfile(char *line)
+
+void		ft_readfile(char *line)
 {
-		if (*line == 'R' && *(line + 1) == ' ')
-			ft_check_resolution(line);
-		else if ((*line == 'F' || *line == 'C') && *(line + 1) == ' ')
-			ft_check_colors(line);
-		else if (ft_condition_textures(line))
-		    ft_check_textures(line);
-		// if (*line != '\0')
-			// ft_error("error\nfaut caractere au debut d'une ligne");
+	if (*line == 'R'/* && *(line + 1) == ' '*/)
+		ft_check_resolution(line);
+	else if ((*line == 'F' || *line == 'C') && *(line + 1) == ' ')
+		ft_check_colors(line);
+	else if (ft_condition_textures(line))
+		ft_check_textures(line);
 }
 
-void	free_list(void)
+void		free_list(void)
 {
 	while (g_file != NULL)
 	{
@@ -222,8 +225,7 @@ void	free_list(void)
 	}
 }
 
-
-int		ft_firstcharofmap(char *str)
+int			ft_firstcharofmap(char *str)
 {
 	int		i;
 
@@ -240,7 +242,7 @@ int		ft_firstcharofmap(char *str)
 	return (0);
 }
 
-char	*spacer(char *buff, int size)
+char		*spacer(char *buff, int size)
 {
 	char	*str;
 	int		i;
@@ -267,7 +269,7 @@ char	*spacer(char *buff, int size)
 	return (str);
 }
 
-char	*space_filler(int size)
+char		*space_filler(int size)
 {
 	char	*str;
 	int		i;
@@ -284,14 +286,16 @@ char	*space_filler(int size)
 	return (str);
 }
 
-void	ft_readmap(void)
+void		ft_init_formap(void)
 {
-	int		i;
-
 	g_sizeofmap = 0;
 	g_biglen = 0;
 	g_temp = g_file;
 	g_str = NULL;
+}
+
+void		ft_sizeofmap(void)
+{
 	while (g_temp)
 	{
 		g_str = g_temp->content;
@@ -303,6 +307,14 @@ void	ft_readmap(void)
 		}
 		g_temp = g_temp->next;
 	}
+}
+
+void		ft_readmap(void)
+{
+	int		i;
+
+	ft_init_formap();
+	ft_sizeofmap();
 	g_sizeofmap += 2;
 	g_biglen += 2;
 	if (!(g_map = (char **)malloc(sizeof(char *) * (g_sizeofmap + 1))))
@@ -323,7 +335,7 @@ void	ft_readmap(void)
 	free_list();
 }
 
-void	ft_check_file(char *str)
+void		ft_check_file(char *str)
 {
 	int		fd;
 	int		n;
@@ -342,4 +354,6 @@ void	ft_check_file(char *str)
 	}
 	if (g_mapindicator == 8)
 		ft_readmap();
+	else
+		ft_error("Error\ndata no completed");
 }

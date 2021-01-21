@@ -44,7 +44,6 @@
 # define TWO_PI 6.28318530
 # define RAYON 5
 # define PLAYERLINE 50
-
 # define FOV_ANGLE 1.04719755
 
 /*
@@ -77,6 +76,7 @@ typedef struct	s_player
 	float		rotation_speed;
 	int			walk_d;
 	int			turn_d;
+	int			walk_r;
 	float		move_speed;
 	float		angle;
 }				t_player;
@@ -126,34 +126,33 @@ t_player		g_player;
 
 void			ft_render(int i);
 float			normalize_angle(float	angle);
-void			init_player();
-void			init_rays();
-void			init_move();
-void			init_mlx();
+void			init_player(void);
+void			init_rays(void);
+void			init_move(void);
+void			init_mlx(void);
 void			my_mlx_pixel_put(int y, int x, int color);
 void			my_mlx_pixel_put_3d(int y, int x, int color);
 float			distancebetweenpts(float xd, float yd, float xf, float yf);
 void			ft_render(int i);
 void			render_floor(int bot, int i);
-void			render_wall(int bot, int start, int i);
+void			render_wall(int bot, int start, int i, float wall_h, int t);
 void			render_ceiling(int start, int i);
-int				ft_depends();
+int				ft_depends(void);
 int				key_release(int key);
 int				key_press(int key);
-void			ft_move();
+void			ft_move(void);
 void			draw_morba3(int j, int k, int color);
-void			draw_line_of_player();
-int				draw_player();
+void			draw_line_of_player(void);
+void			draw_player(void);
 void			draw_line_2(float y, float x, float y1, float x1,
-					float ray_angle, int color);
+							float ray_angle, int color);
 void			draw_line(int y0, int x0, int y1, int x1, int color);
 void			check_angle(float angle);
 int				wall_collision(float x, float y);
-int				check_wall(float posy, float posx);
+//int				check_wall(float posy, float posx);
 void			verti_inter(float ray_angle);
 void			horiz_inter(float ray_angle);
-void			cast_all_rays();
+void			cast_all_rays(void);
 void			cast_ray(float ray_angle, int strip_id);
 void			remplir_gray(float ray_angle, int strip_id);
-
 #endif

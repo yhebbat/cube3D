@@ -1,10 +1,21 @@
-#include "get_next_line.h"
-# include "cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/13 19:11:36 by yhebbat           #+#    #+#             */
+/*   Updated: 2021/01/21 15:29:56 by yhebbat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_atoi(const char *str)
+#include "cub3d.h"
+
+int				ft_atoi(const char *str)
 {
-	size_t	result;
-	int		signe;
+	size_t		result;
+	int			signe;
 
 	result = 0;
 	signe = 1;

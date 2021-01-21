@@ -6,14 +6,13 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:13:03 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/12 15:13:04 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/21 15:13:40 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "get_next_line.h"
 
-t_list	*ft_lstlast(t_list *lst)
+t_list		*ft_lstlast(t_list *lst)
 {
 	t_list	*current;
 
@@ -25,7 +24,7 @@ t_list	*ft_lstlast(t_list *lst)
 	return (current);
 }
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+void		ft_lstadd_back(t_list **alst, t_list *new)
 {
 	t_list	*last;
 

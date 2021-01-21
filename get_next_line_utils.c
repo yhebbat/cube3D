@@ -6,12 +6,11 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 15:28:45 by yhebbat           #+#    #+#             */
-/*   Updated: 2019/11/15 11:51:56 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/21 16:12:17 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-# include "cub3d.h"
+#include "cub3d.h"
 
 size_t	ft_strlen(const char *s)
 {
