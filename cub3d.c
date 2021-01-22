@@ -11,28 +11,8 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
-void			ft_jareb(void)
-
-{
-	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
-	mlx_clear_window(g_mlx.mlx, g_mlx.win);
-	g_mlx.img = mlx_new_image(g_mlx.mlx, g_data.win_width, g_data.win_height);
-	g_mlx.addr = (int *)mlx_get_data_addr(g_mlx.img,
-			&g_mlx.bpp, &g_mlx.size_line, &g_mlx.endian);
-}
-/*
-** int		check_wall(float posy, float posx)
-** {
-** 	int x;
-** 	int	y;
-** 	x = (int)posx / TILE_SIZE;
-** 	y = (int)posy / TILE_SIZE;
-** 	if (g_map[y][x] == '0' || g_map[y][x] == '2')
-** 		return (-1);
-** 	return (1);
-** }
-*/
 int				wall_collision(float x, float y)
 {
 	int			grid_x;
@@ -101,6 +81,17 @@ void			ft_move(void)
 	draw_player();
 }
 
+void			ft_check_save(char *str)
+{
+	int save;
+
+	save = 0;
+	if (ft_strncmp(str, "--save", 7) == 0)
+		save = 1;
+	else
+		ft_error("Error\n2nd argument incorrect");
+}
+
 int				main(int ac, char **av)
 {
 	if (ac > 3 || ac < 2)
@@ -109,6 +100,8 @@ int				main(int ac, char **av)
 		return (0);
 	}
 	ft_check_extention(av[1]);
+	if (av[2])
+		ft_check_save(av[2]);
 	ft_data_init();
 	ft_check_file(av[1]);
 	init_mlx();

@@ -1,8 +1,9 @@
 SRC =	cub3d.c ft_atoi.c ft_check.c ft_draw.c ft_initialisation.c \
 		ft_keys.c ft_render.c ft_split.c ft_utils.c ft_vert_horiz_inter.c \
  		get_next_line.c get_next_line_utils.c pars.c ray_cast_algo.c \
-		ft_sprite.c \
-		ft_lstadd_back.c ft_lstnew.c get_text.c
+		ft_sprite.c ft_savecolors.c ft_savemap.c ft_savemap_utils.c \
+		ft_saveresolution.c ft_savetext.c ft_initialisation2.c \
+		ft_lstadd_back.c ft_lstnew.c get_text.c ft_render_utils.c
 
 
 OBJECT = $(SRC:.c=.o)

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void		remplir_gray(float ray_angle, int strip_id)
 {
@@ -56,6 +57,12 @@ void		cast_ray(float ray_angle, int strip_id)
 	remplir_gray(ray_angle, strip_id);
 }
 
+/*
+**put it before strip_id++
+** draw_line_2(g_player.y, g_player.x, g_ray[strip_id].wall_hity,
+**  g_ray[strip_id].wall_hitx, 0xfffff);
+*/
+
 void		cast_all_rays(void)
 {
 	float	ray_angle;
@@ -69,8 +76,6 @@ void		cast_all_rays(void)
 		cast_ray(ray_angle, strip_id);
 		ft_render(strip_id);
 		ray_angle += FOV_ANGLE / g_data.win_width;
-		draw_line_2(g_player.y, g_player.x, g_ray[strip_id].wall_hity,
-				g_ray[strip_id].wall_hitx, ray_angle, 0xfffff);
 		strip_id++;
 	}
 }

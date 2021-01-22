@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	set_rotationangle(char player_position)
 {
@@ -58,30 +59,6 @@ void	init_move(void)
 	g_player.walk_d = 0;
 	g_player.turn_d = 0;
 	g_player.walk_r = 0;
-}
-
-void	init_rays(void)
-{
-	g_tray.ray_facingup = 0;
-	g_tray.ray_facingdown = 0;
-	g_tray.ray_facingright = 0;
-	g_tray.ray_facingleft = 0;
-	g_tray.h_wallhit = 0;
-	g_tray.h_wallhit_x = 0;
-	g_tray.h_wallhit_y = 0;
-	g_tray.h_wallcontent = 0;
-	g_tray.inter_v_x = 0;
-	g_tray.inter_v_y = 0;
-	g_tray.inter_h_x = 0;
-	g_tray.inter_h_y = 0;
-	g_tray.v_wallhit = 0;
-	g_tray.v_wallhit_x = 0;
-	g_tray.v_wallhit_y = 0;
-	g_tray.v_wallcontent = 0;
-	g_tray.xtocheck = 0;
-	g_tray.ytocheck = 0;
-	g_tray.v_hit_distance = INT_MAX;
-	g_tray.h_hit_distance = INT_MAX;
 }
 
 void	init_sprite(void)

@@ -1,42 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_savemap_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 15:13:03 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/21 15:13:40 by yhebbat          ###   ########.fr       */
+/*   Created: 2021/01/22 18:15:37 by yhebbat           #+#    #+#             */
+/*   Updated: 2021/01/22 18:15:38 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 
-t_list		*ft_lstlast(t_list *lst)
+void		free_list(void)
 {
-	t_list	*current;
-
-	current = lst;
-	if (current == NULL)
-		return (NULL);
-	while (current->next != NULL)
-		current = current->next;
-	return (current);
+	while (g_file != NULL)
+	{
+		g_temp = g_file;
+		g_file = g_file->next;
+		free(g_temp->content);
+		free(g_temp);
+	}
 }
 
-void		ft_lstadd_back(t_list **alst, t_list *new)
+int			ft_firstcharofmap(char *str)
 {
-	t_list	*last;
+	int		i;
 
-	if (alst)
+	i = 0;
+	while (str[i])
 	{
-		if (*alst)
-		{
-			last = ft_lstlast(*alst);
-			last->next = new;
-		}
+		while (str[i] == ' ')
+			i++;
+		if (str[i] == '1' || str[i] == '0')
+			return (1);
 		else
-			*alst = new;
+			break ;
 	}
+	return (0);
+}
+
+void		ft_init_formap(void)
+{
+	g_sizeofmap = 0;
+	g_biglen = 0;
+	g_temp = g_file;
+	g_str = NULL;
 }

@@ -11,55 +11,31 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
-void		draw_line(int y0, int x0, int y1, int x1, int color)
-{
-	int		dx;
-	int		dy;
-	int		i;
-	int		steps;
-	float	xinc;
-	float	yinc;
-	float	x;
-	float	y;
-
-	dx = x1 - x0;
-	dy = y1 - y0;
-	i = 0;
-	steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
-	xinc = dx / (float)steps;
-	yinc = dy / (float)steps;
-	x = x0;
-	y = y0;
-	while (i <= steps)
-	{
-		my_mlx_pixel_put(y, x, color);
-		x += xinc;
-		y += yinc;
-		i++;
-	}
-}
-
-void		draw_line_2(float y, float x, float y1, float x1, float ray_angle, int color)
-{
-	int		dist;
-	float	i;
-	float	j;
-	float	c;
-
-	j = y;
-	c = x;
-	i = 0;
-	dist = distancebetweenpts(x, y, x1, y1);
-	ray_angle = normalize_angle(ray_angle);
-	while (i < dist)
-	{
-		x = c + (i * cos(ray_angle));
-		y = j + (i * sin(ray_angle));
-		my_mlx_pixel_put(y, x, color);
-		i++;
-	}
-}
+/*
+**void		draw_line_2(float y, float x, float y1,
+**float x1, float ray_angle, int color)
+**{
+**	int		dist;
+**	float	i;
+**	float	j;
+**	float	c;
+**
+**	j = y;
+**	c = x;
+**	i = 0;
+**	dist = distancebetweenpts(x, y, x1, y1);
+**	ray_angle = normalize_angle(ray_angle);
+**	while (i < dist)
+**	{
+**		x = c + (i * cos(ray_angle));
+**		y = j + (i * sin(ray_angle));
+**		my_mlx_pixel_put(y, x, color);
+**		i++;
+**	}
+**}
+*/
 
 void		draw_player(void)
 {

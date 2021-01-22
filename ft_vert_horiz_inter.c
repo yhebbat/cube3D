@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	horiz_iwall_collision(float deltay, float deltax)
 {

@@ -11,14 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int			rgb_to_int(int r, int g, int b)
-{
-	int		k;
-
-	k = (256 * 256 * r) + (256 * g) + b;
-	return (k);
-}
+#include "get_next_line.h"
 
 void		render_ceiling(int start, int i)
 {
@@ -30,13 +23,15 @@ void		render_ceiling(int start, int i)
 					g_color[1].color_c, g_color[2].color_c));
 }
 
-void		render_wall(int bot, int start, int i, float wall_h, int t)
+void		render_wall(int bot, int start, int i, float wall_h)
 {
 	float	tex_x;
 	float	tex_y;
 	int		bdya;
 	int		color;
+	int		t;
 
+	t = is_facing(i);
 	bdya = start - 1;
 	tex_x = g_ray[i].was_hit_v ? g_ray[i].wall_hity / TILE_SIZE
 		: g_ray[i].wall_hitx / TILE_SIZE;
@@ -68,15 +63,7 @@ void		ft_render(int i)
 	int		dp;
 	int		start;
 	int		bot;
-	int		t;
 
-	t = 1;
-	if (g_ray[i].ray_facingdown && !g_ray[i].was_hit_v)
-		t = 3;
-	else if (g_ray[i].ray_facingright && g_ray[i].was_hit_v)
-		t = 2;
-	else if (g_ray[i].ray_facingleft && g_ray[i].was_hit_v)
-		t = 4;
 	dp = (g_data.win_width / 2) / tan(FOV_ANGLE / 2);
 	g_ray[i].distance *= cos(normalize_angle(g_ray[i].ray_angle
 				- g_player.rotation_angle));
@@ -86,6 +73,6 @@ void		ft_render(int i)
 	bot = (g_data.win_height / 2) + (wall_h / 2);
 	bot = (bot > g_data.win_height) ? g_data.win_height : bot;
 	render_ceiling(start, i);
-	render_wall(bot, start, i, wall_h, t);
+	render_wall(bot, start, i, wall_h);
 	render_floor(bot, i);
 }

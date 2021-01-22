@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	my_mlx_pixel_put(int y, int x, int color)
 {
@@ -42,4 +43,13 @@ float	distancebetweenpts(float xd, float yd, float xf, float yf)
 	if (xf == -1 || yf == -1)
 		return (INT_MAX);
 	return (sqrt((xf - xd) * (xf - xd) + (yd - yf) * (yd - yf)));
+}
+
+void	ft_jareb(void)
+{
+	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
+	mlx_clear_window(g_mlx.mlx, g_mlx.win);
+	g_mlx.img = mlx_new_image(g_mlx.mlx, g_data.win_width, g_data.win_height);
+	g_mlx.addr = (int *)mlx_get_data_addr(g_mlx.img,
+			&g_mlx.bpp, &g_mlx.size_line, &g_mlx.endian);
 }
