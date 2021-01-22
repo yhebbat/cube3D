@@ -83,11 +83,11 @@ void			ft_move(void)
 
 void			ft_check_save(char *str)
 {
-	int save;
+	int sv;
 
-	save = 0;
+	sv = 0;
 	if (ft_strncmp(str, "--save", 7) == 0)
-		save = 1;
+		sv = 1;
 	else
 		ft_error("Error\n2nd argument incorrect");
 }

@@ -15,15 +15,8 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 char			**ft_split(char const *s, char c);
 int				ft_atoi(const char *str);
-void			ft_error(char *str);
-void			ft_check_extention(char *str);
-void			ft_check_xpm(char *str);
 void			ft_data_init(void);
-void			ft_check_resolution(char *str);
-void			ft_color(char **color, char *str);
-void			ft_check_colors(char *str);
-void			ft_check_textures(char *str);
-void			ft_check_file(char *str);
+void			ft_error(char *str);
 /*
 **initialization
 */
@@ -60,6 +53,9 @@ void			ft_check_textures(char *str);
 int				ft_condition_textures(char *str);
 void    		ft_get_textures(void);
 void    		get_no(void);
+void			ft_check_file(char *str);
+void			ft_check_extention(char *str);
+void			ft_check_xpm(char *str);
 /*
 **raycasting
 */
@@ -103,4 +99,9 @@ int				ft_depends(void);
 void			check_angle(float angle);
 int				wall_collision(float x, float y);
 void			ft_jareb(void);
+/*
+**free
+*/
+void		ft_free(char **p, int j);
+
 #endif
