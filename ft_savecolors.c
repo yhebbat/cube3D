@@ -22,7 +22,10 @@ void		ft_color(char **color, char *str)
 	while (color[i])
 		i++;
 	if (i != 3)
+	{
+		ft_free2(color);
 		ft_error("Error\nProblem in the arguments of color");
+	}
 	i = 0;
 	if (*(str + 1) == ' ')
 	{
@@ -53,11 +56,15 @@ void		ft_check_colors(char *str)
 	while (data[i])
 		i++;
 	if (i != 2)
+	{
+		ft_free(data, i);
 		ft_error("Error\nProblem in the color of the ceiling or floor");
+	}
 	color = ft_split(data[1], ',');
+	ft_free2(data);
 	ft_color(color, str);
-	i = 0;
-	while (i < 3)
+	i = -1;
+	while (++i < 3)
 	{
 		if ((ft_atoi(color[i]) < 0) || (ft_atoi(color[i]) > 255))
 			ft_error("Les couleurs Ne Sont Pas Bien Defini");
@@ -65,7 +72,7 @@ void		ft_check_colors(char *str)
 			g_color[i].color_f = ft_atoi(color[i]);
 		else
 			g_color[i].color_c = ft_atoi(color[i]);
-		i++;
 	}
+	ft_free2(color);
 	g_mapindicator++;
 }

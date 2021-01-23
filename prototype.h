@@ -104,4 +104,8 @@ void			ft_jareb(void);
 */
 void		ft_free(char **p, int j);
 
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+void		ft_free2(char **p);
+
+
 #endif

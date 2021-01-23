@@ -13,81 +13,83 @@
 #include "cub3d.h"
 #include "get_next_line.h"
 
-static int			ft_mots(char const *s, char c)
+static int			words_counter(char const *s, char c)
 {
-	int			i;
-	int			k;
-	int			p;
+	int		i;
+	int		w;
 
 	i = 0;
-	k = 0;
-	p = 1;
+	w = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
-			p = 1;
-		else if (p == 1)
+		if (s[i] == c && s[i])
+			i++;
+		else if (s[i] != c && s[i])
 		{
-			p = 0;
-			k++;
+			w++;
+			i++;
+			while (s[i] != c && s[i])
+				i++;
 		}
-		i++;
 	}
-	return (k);
+	return (w);
 }
 
-static void			*ft_freee(char **p, int j)
+static size_t		word_length(char const *s, char c)
 {
-	while (p[j--])
-		free(p[j]);
-	free(p);
-	return (0);
-}
-
-static int			ft_alpha(char const *s, char c, int i)
-{
-	int r;
-
-	r = 0;
-	while (s[i] != c && s[i])
-	{
-		r++;
-		i++;
-	}
-	return (r);
-}
-
-static char			**ft_remp(char **p, char const *s, char c)
-{
-	int i;
-	int j;
-	int k;
+	int	i;
 
 	i = 0;
-	j = 0;
-	while (s[i] && ft_mots(s, c) > j)
+	while (s[i] != '\0' && s[i] != c)
+		i++;
+	return (i);
+}
+
+static void			clean(char **split, int c)
+{
+	while (c >= 0)
 	{
-		k = 0;
-		while (s[i] == c)
-			i++;
-		if (!(p[j] = malloc(sizeof(char) * ft_alpha(s, c, i))))
-			return (ft_freee(p, j));
-		while (s[i] != c && s[i])
-			p[j][k++] = s[i++];
-		p[j][k] = '\0';
-		j++;
+		free(split[c]);
+		c--;
 	}
-	p[j] = 0;
-	return (p);
+	free(split);
+}
+
+static char			*next_word(const char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (*s && *s == c)
+		s++;
+	return ((char *)s);
 }
 
 char				**ft_split(char const *s, char c)
 {
-	char	**p;
+	size_t		i;
+	size_t		words;
+	char		**split;
 
-	if (s == NULL)
-		return (0);
-	if (!(p = malloc(sizeof(char *) * (ft_mots(s, c) + 1))))
-		return (0);
-	return (ft_remp(p, s, c));
+	i = 0;
+	if (!s)
+		return (NULL);
+	words = words_counter((char *)s, c);
+	split = (char **)malloc((words + 1) * sizeof(char*));
+	if (split == NULL)
+		return (NULL);
+	while (i < words)
+	{
+		s = next_word(s, c);
+		split[i] = ft_substr(s, 0, word_length(s, c));
+		if (split[i] == NULL)
+		{
+			clean(split, i);
+			return (NULL);
+		}
+		i++;
+		s += word_length(s, c);
+	}
+	split[words] = NULL;
+	return (split);
 }

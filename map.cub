@@ -1,9 +1,9 @@
 R 1920 1024
 
-WE ./texture/rolling_stones.xpm
+WE ./texture/yoda.xpm
 EA ./texture/yoda.xpm
-NO  ./texture/island_stone.xpm
-SO ./texture/rl_stones.xpm
+NO  ./texture/yoda.xpm
+SO ./texture/yoda.xpm
 S ./texture/barrel.xpm
 F 51,51,51
 C 0,179,179

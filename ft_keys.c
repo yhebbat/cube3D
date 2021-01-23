@@ -37,6 +37,9 @@ int		key_press(int key)
 
 int		key_release(int key)
 {
+	int t;
+
+	t = 0;
 	if (key == ESC)
 	{
 		mlx_destroy_window(g_mlx.mlx, g_mlx.win);

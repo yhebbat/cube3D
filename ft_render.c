@@ -44,6 +44,7 @@ void		render_wall(int bot, int start, int i, float wall_h)
 		color = g_textures[t].text[((int)tex_y
 				* g_textures[t].text_width) + (int)tex_x];
 		my_mlx_pixel_put_3d(bdya, i, color);
+		
 	}
 }
 

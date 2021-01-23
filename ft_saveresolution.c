@@ -47,9 +47,13 @@ void		ft_check_resolution(char *str)
 	while (data[i])
 		i++;
 	if (i != 3)
+	{
+		ft_free(data, i);
 		ft_error("Error\nUn Probleme Dans La Resolution");
+	}
 	ft_check_resolution_error(str, data);
 	g_data.win_height = ft_atoi(data[2]);
 	g_data.win_width = ft_atoi(data[1]);
+	ft_free2(data);
 	g_mapindicator++;
 }
