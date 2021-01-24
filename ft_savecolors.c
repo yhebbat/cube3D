@@ -26,23 +26,27 @@ void		ft_color(char **color, char *str)
 		ft_free2(color);
 		ft_error("Error\nProblem in the arguments of color");
 	}
-	i = 0;
+	i = -1;
 	if (*(str + 1) == ' ')
+		ft_error("Error\nun faut caractere apres le F ou C");
+	while (++i < 3)
 	{
-		while (i < 3)
+		j = -1;
+		while (color[i][++j])
 		{
-			j = 0;
-			while (color[i][j])
-			{
-				if (color[i][j] < '0' || color[i][j] > '9')
-					ft_error("Les Des couleurs Ne Sont Pas Bien Defini");
-				j++;
-			}
-			i++;
+			if (color[i][j] < '0' || color[i][j] > '9')
+				ft_error("Les Des couleurs Ne Sont Pas Bien Defini");
 		}
 	}
-	else
-		ft_error("Error\nun faut caractere apres le F ou C");
+}
+
+void		ft_nbrofdata(char **data,int i)
+{
+	if (i != 2)
+	{
+		ft_free(data, i);
+		ft_error("Error\nProblem in the color of the ceiling or floor");
+	}
 }
 
 void		ft_check_colors(char *str)
@@ -55,11 +59,7 @@ void		ft_check_colors(char *str)
 	data = ft_split(str, ' ');
 	while (data[i])
 		i++;
-	if (i != 2)
-	{
-		ft_free(data, i);
-		ft_error("Error\nProblem in the color of the ceiling or floor");
-	}
+	ft_nbrofdata(data, i);
 	color = ft_split(data[1], ',');
 	ft_free2(data);
 	ft_color(color, str);

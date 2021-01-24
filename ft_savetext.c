@@ -13,6 +13,15 @@
 #include "cub3d.h"
 #include "get_next_line.h"
 
+void		ft_datatxtnbr(char **data, int i)
+{
+	if (i != 2)
+	{
+		ft_free(data, i);
+		ft_error("Error\nprobleme in the path of textures");
+	}
+}
+
 void		ft_check_textures(char *str)
 {
 	char	**data;
@@ -22,11 +31,7 @@ void		ft_check_textures(char *str)
 	data = ft_split(str, ' ');
 	while (data[i])
 		i++;
-	if (i != 2)
-	{
-		ft_free2(data);
-		ft_error("Error :o");
-	}
+	ft_datatxtnbr(data, i);
 	if (*str == 'S' && *(str + 1) == 32)
 		g_textures[S].texture = ft_strdup(data[1]);
 	else if (*str == 'S' && *(str + 1) == 'O')
@@ -39,7 +44,7 @@ void		ft_check_textures(char *str)
 		g_textures[WE].texture = ft_strdup(data[1]);
 	else
 		ft_error("Error\nun faut caractere");
-	ft_free2(data);
+	ft_free(data, i);
 	g_mapindicator++;
 }
 
