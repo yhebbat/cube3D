@@ -17,7 +17,7 @@ $(NAME):
 	@gcc -Wall -Wextra -Werror -c $(SRC) -D BUFFER_SIZE=32 -O3
 	@ar rc $(NAME) $(OBJECT)
 	@ranlib $(NAME)
-	@gcc cub3d.c $(NAME) -g3 -fsanitize=address -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o cub3D -O3 -g3
+	@gcc cub3d.c $(NAME) -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o cub3D -O3 -g3
 
 
 clean:

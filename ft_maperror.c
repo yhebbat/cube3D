@@ -25,8 +25,8 @@ void	ft_checkerror_map(void)
 		while (++j < g_biglen)
 		{
 			// if (g_map[i][j] == 'N' || g_map[i][j] == 'S' 
-			// 	|| g_map[i][j] == 'W' || g_map[i][j] == 'E')
-					//g_nbp++;
+			//  	|| g_map[i][j] == 'W' || g_map[i][j] == 'E')
+			// 		g_nbp++;
 			if (g_map[i][j] == '0' || g_map[i][j] == 'N' || g_map[i][j] == 'S' 
 				|| g_map[i][j] == 'W' || g_map[i][j] == 'E' || g_map[i][j] == '2')
 			{

@@ -45,10 +45,7 @@ void			draw_map(void)
 				draw_morba3(y * TILE_SIZE, x * TILE_SIZE, 0xffff00);
 			if (g_map[y][x] == 'E' || g_map[y][x] == 'S'
 					|| g_map[y][x] == 'N' || g_map[y][x] == 'W')
-			{
-				g_nbp++;
 				g_map[y][x] = '0';
-			}
 			x++;
 		}
 		y++;
