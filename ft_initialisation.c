@@ -72,9 +72,10 @@ void	init_sprite(void)
 	{
 		if (!(g_sprite[i] = malloc(sizeof(t_sprite))))
 			return ;
-		g_sprite[i]->ptr = mlx_xpm_file_to_image(g_mlx.mlx,
+		if (!(g_sprite[i]->ptr = mlx_xpm_file_to_image(g_mlx.mlx,
 			g_textures[S].texture, &g_textures[S].text_width,
-			&g_textures[S].text_height);
+			&g_textures[S].text_height)))
+			ft_error("the texture of the sprite is not well defined");
 		g_sprite[i]->data = (int *)mlx_get_data_addr(g_sprite[i]->ptr,
 				&g_sprite[i]->bpp,
 				&g_sprite[i]->size_line,

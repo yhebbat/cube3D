@@ -17,7 +17,7 @@ void		ft_datatxtnbr(char **data, int i)
 {
 	if (i != 2)
 	{
-		ft_free(data, i);
+		ft_free2(data);
 		ft_error("Error\nprobleme in the path of textures");
 	}
 }
@@ -44,7 +44,7 @@ void		ft_check_textures(char *str)
 		g_textures[WE].texture = ft_strdup(data[1]);
 	else
 		ft_error("Error\nun faut caractere");
-	ft_free(data, i);
+	ft_free2(data);
 	g_mapindicator++;
 }
 

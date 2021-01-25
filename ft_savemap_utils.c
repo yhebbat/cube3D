@@ -47,4 +47,5 @@ void		ft_init_formap(void)
 	g_biglen = 0;
 	g_temp = g_file;
 	g_str = NULL;
+	g_nbp = 0;
 }

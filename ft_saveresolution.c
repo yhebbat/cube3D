@@ -26,6 +26,8 @@ void		ft_check_resolution_error(char *str, char **data)
 			j = -1;
 			while (data[i][++j])
 			{
+				if (data[i][j] == '-')
+					ft_error("Error\nresolution can't be negative");
 				if (data[i][j] < '0' || data[i][j] > '9')
 					ft_error("Error\nLa Resolution N'est Pas Bien Defini");
 			}
@@ -48,7 +50,7 @@ void		ft_check_resolution(char *str)
 		i++;
 	if (i != 3)
 	{
-		ft_free(data, i);
+		ft_free2(data);
 		ft_error("Error\nUn Probleme Dans La Resolution");
 	}
 	ft_check_resolution_error(str, data);

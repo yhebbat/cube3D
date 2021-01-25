@@ -6,7 +6,7 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:13:13 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/20 17:58:23 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/25 14:14:31 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void		render_wall(int bot, int start, int i, float wall_h)
 		color = g_textures[t].text[((int)tex_y
 				* g_textures[t].text_width) + (int)tex_x];
 		my_mlx_pixel_put_3d(bdya, i, color);
-		
 	}
 }
 

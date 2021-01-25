@@ -67,16 +67,23 @@ typedef struct	s_sprite
 	float		distance;
 }				t_sprite;
 
-// MAP
+/*
+**MAP
+*/
 char			**g_map;
 t_list			*g_file;
 t_list			*g_temp;
 int				g_sizeofmap;
 int				g_biglen;
 char 			*g_str;
+int				g_nbp;
 t_sprite		**g_sprite;
+// int				g_ccolor;
+// int				g_fcolor;
 
-// SPT
+/*
+**SPT
+*/
 t_sprite		**g_sprite;
 
 // MAP INDICATOR TO START THE INIT OF THE MAP

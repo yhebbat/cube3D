@@ -6,7 +6,7 @@
 /*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 18:15:09 by yhebbat           #+#    #+#             */
-/*   Updated: 2021/01/22 18:15:12 by yhebbat          ###   ########.fr       */
+/*   Updated: 2021/01/25 14:15:22 by yhebbat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_color(char **color, char *str)
 		ft_error("Error\nProblem in the arguments of color");
 	}
 	i = -1;
-	if (*(str + 1) == ' ')
+	if (*(str + 1) != ' ')
 		ft_error("Error\nun faut caractere apres le F ou C");
 	while (++i < 3)
 	{
@@ -40,13 +40,35 @@ void		ft_color(char **color, char *str)
 	}
 }
 
-void		ft_nbrofdata(char **data,int i)
+void		ft_nbrofdata(char **data, int i)
 {
 	if (i != 2)
 	{
-		ft_free(data, i);
-		ft_error("Error\nProblem in the color of the ceiling or floor");
+		ft_free2(data);
+		printf("Error\nProblem in the color of the ceiling or floor\n");
+		ft_error("if you make a space between colors 'RGB' delete it please");
 	}
+}
+
+void		ft_getclr(char *str, char **color)
+{
+	int i;
+
+	i = -1;
+	while (++i < 3)
+	{
+		if ((ft_atoi(color[i]) < 0) || (ft_atoi(color[i]) > 255))
+			ft_error("Error\nLes couleurs Ne Sont Pas Bien Defini");
+		else if (*str == 'F')
+		{
+			g_color[i].color_f = ft_atoi(color[i]);
+		}
+		else if (*str == 'C')
+		{
+			g_color[i].color_c = ft_atoi(color[i]);
+		}
+	}
+	ft_free2(color);
 }
 
 void		ft_check_colors(char *str)
@@ -56,6 +78,10 @@ void		ft_check_colors(char *str)
 	int		i;
 
 	i = 0;
+	if (g_color[0].color_c != -1 && *str == 'C')
+		ft_error("Error\ncolor of the ceiling is already filled");
+	if (g_color[0].color_f != -1 && *str == 'F')
+		ft_error("Error\ncolor of the floor is already filled");
 	data = ft_split(str, ' ');
 	while (data[i])
 		i++;
@@ -63,16 +89,6 @@ void		ft_check_colors(char *str)
 	color = ft_split(data[1], ',');
 	ft_free2(data);
 	ft_color(color, str);
-	i = -1;
-	while (++i < 3)
-	{
-		if ((ft_atoi(color[i]) < 0) || (ft_atoi(color[i]) > 255))
-			ft_error("Les couleurs Ne Sont Pas Bien Defini");
-		else if (*str == 'F')
-			g_color[i].color_f = ft_atoi(color[i]);
-		else
-			g_color[i].color_c = ft_atoi(color[i]);
-	}
-	ft_free2(color);
+	ft_getclr(str, color);
 	g_mapindicator++;
 }

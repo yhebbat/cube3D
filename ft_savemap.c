@@ -96,4 +96,5 @@ void		ft_readmap(void)
 	g_map[i++] = space_filler(g_biglen);
 	g_map[i] = NULL;
 	free_list();
+	ft_checkerror_map();
 }

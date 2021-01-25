@@ -75,20 +75,11 @@ void		ft_readfile(char *line)
 void		ft_check_file(char *str)
 {
 	int		fd;
-	int		n;
-	char	*line;
 
 	g_mapindicator = 0;
-	n = 1;
 	if ((fd = open(str, O_RDONLY)) == -1)
 		ft_error("error file");
-	while (n != 0)
-	{
-		n = get_next_line(fd, &line);
-		ft_readfile(line);
-		ft_lstadd_back(&g_file, ft_lstnew(line));
-		free(line);
-	}
+	ft_getall(fd);
 	if (g_mapindicator == 8)
 		ft_readmap();
 	else

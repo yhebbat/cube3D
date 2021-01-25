@@ -38,6 +38,7 @@ void			init_sprite(void);
 /*
 **parsing
 */
+void			ft_getall(int fd);
 char			*spacer(char *buff, int size);
 char			*space_filler(int size);
 void			ft_sizeofmap(void);
@@ -56,6 +57,8 @@ void    		get_no(void);
 void			ft_check_file(char *str);
 void			ft_check_extention(char *str);
 void			ft_check_xpm(char *str);
+void			ft_readfile(char *line);
+void			ft_checkerror_map(void);
 /*
 **raycasting
 */
@@ -102,8 +105,6 @@ void			ft_jareb(void);
 /*
 **free
 */
-void		ft_free(char **p, int j);
-
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void		ft_free2(char **p);
 
