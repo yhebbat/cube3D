@@ -15,7 +15,6 @@
 
 void	set_rotationangle(char player_position)
 {
-	g_nbp++;
 	if (player_position == 'N')
 		g_player.rotation_angle = (270 * (PI / 180));
 	else if (player_position == 'S')

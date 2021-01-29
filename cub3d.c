@@ -94,6 +94,7 @@ void			ft_check_save(char *str)
 
 int				main(int ac, char **av)
 {
+	g_nbp = 0;
 	if (ac > 3 || ac < 2)
 	{
 		ft_error("Error\nLe Nombre d'argument en compilation est faut");
