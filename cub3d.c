@@ -87,7 +87,7 @@ void			ft_check_save(char *str)
 
 	sv = 0;
 	if (ft_strncmp(str, "--save", 7) == 0)
-		sv = 1;
+		bmp_save();
 	else
 		ft_error("Error\n2nd argument incorrect");
 }
