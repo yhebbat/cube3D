@@ -35,6 +35,12 @@ int		key_press(int key)
 	return (0);
 }
 
+int		ft_exit(void)
+{
+	mlx_destroy_window(g_mlx.mlx, g_mlx.win);
+	exit(0);
+}
+
 int		key_release(int key)
 {
 	int t;
@@ -64,6 +70,7 @@ int		ft_depends(void)
 {
 	mlx_hook(g_mlx.win, 2, 0, key_press, 0);
 	mlx_hook(g_mlx.win, 3, 0, key_release, 0);
+	mlx_hook(g_mlx.win, 17, 0L, ft_exit, 0);
 	ft_move();
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_mlx.img, 0, 0);
 	return (0);

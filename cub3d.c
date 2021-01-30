@@ -101,8 +101,6 @@ int				main(int ac, char **av)
 		return (0);
 	}
 	ft_check_extention(av[1]);
-	if (av[2])
-		ft_check_save(av[2]);
 	ft_data_init();
 	ft_check_file(av[1]);
 	init_mlx();
@@ -110,6 +108,8 @@ int				main(int ac, char **av)
 	init_move();
 	ft_get_textures();
 	init_sprite();
+	if (av[2])
+		ft_check_save(av[2]);
 	mlx_loop_hook(g_mlx.mlx, ft_depends, (void*)0);
 	mlx_loop(g_mlx.mlx);
 	return (0);
