@@ -31,6 +31,8 @@ void		ft_check_resolution_error(char *str, char **data)
 				if (data[i][j] < '0' || data[i][j] > '9')
 					ft_error("Error\nLa Resolution N'est Pas Bien Defini");
 			}
+			if (ft_atoi(data[i]) < 0)
+				ft_error("Error\nresolution is invalid");
 		}
 	}
 	else
@@ -56,6 +58,10 @@ void		ft_check_resolution(char *str)
 	ft_check_resolution_error(str, data);
 	g_data.win_height = ft_atoi(data[2]);
 	g_data.win_width = ft_atoi(data[1]);
+	if (g_data.win_height > 1440)
+		g_data.win_height = 1440;
+	if (g_data.win_width > 2550)
+		g_data.win_width = 2550;
 	ft_free2(data);
 	g_mapindicator++;
 }

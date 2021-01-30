@@ -64,6 +64,17 @@ void		ft_data_init(void)
 
 void		ft_readfile(char *line)
 {
+	int		i;
+
+	i = 0;
+	if (line[i] == 32)
+	{
+		while (line[i] == ' ')
+			i++;
+		if (((line[i] != 0 && line[i] != '1') && g_mapindicator == 8)
+			|| (line[i] != '\0' && line[i] != '1'))
+			ft_error("Error\nfile .cub invalid");
+	}
 	if (*line == 'R')
 		ft_check_resolution(line);
 	else if ((*line == 'F' || *line == 'C') && *(line + 1) == ' ')

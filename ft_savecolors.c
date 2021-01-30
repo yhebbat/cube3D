@@ -35,19 +35,32 @@ void		ft_color(char **color, char *str)
 		while (color[i][++j])
 		{
 			if (color[i][j] < '0' || color[i][j] > '9')
-				ft_error("Les Des couleurs Ne Sont Pas Bien Defini");
+				ft_error("Error\nLes couleurs Ne Sont Pas Bien Defini");
 		}
 	}
 }
 
 void		ft_nbrofdata(char **data, int i)
 {
+	int		j;
+	int		r;
+
+	j = 0;
+	r = 0;
 	if (i != 2)
 	{
 		ft_free2(data);
 		printf("Error\nProblem in the color of the ceiling or floor\n");
 		ft_error("if you make a space between colors 'RGB' delete it please");
 	}
+	while (data[1][j])
+	{
+		if (data[1][j] == ',')
+			r++;
+		j++;
+	}
+	if (r != 2)
+		ft_error("Error\nin the colors");
 }
 
 void		ft_getclr(char *str, char **color)

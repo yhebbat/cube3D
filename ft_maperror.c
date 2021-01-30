@@ -36,7 +36,7 @@ void	ft_checkerror_map(void)
 			|| g_map[i][j] == 'W' || g_map[i][j] == 'E' || g_map[i][j] == '2')
 			{
 				if (g_map[i - 1][j] == ' ' || g_map[i][j - 1] == ' '
-						|| g_map[i][j + 1] == ' ' || g_map[i][j + 1] == ' ')
+						|| g_map[i + 1][j] == ' ' || g_map[i][j + 1] == ' ')
 					ft_error("Error\ninvalid Map");
 			}
 			else if (g_map[i][j] != '0' && g_map[i][j] != 'N'
