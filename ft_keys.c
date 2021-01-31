@@ -73,5 +73,6 @@ int		ft_depends(void)
 	mlx_hook(g_mlx.win, 17, 0L, ft_exit, 0);
 	ft_move();
 	mlx_put_image_to_window(g_mlx.mlx, g_mlx.win, g_mlx.img, 0, 0);
+	ft_lifebar();
 	return (0);
 }

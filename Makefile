@@ -4,7 +4,8 @@ SRC =	cub3d.c ft_atoi.c ft_check.c ft_draw.c ft_initialisation.c \
 		ft_sprite.c ft_savecolors.c ft_savemap.c ft_savemap_utils.c \
 		ft_saveresolution.c ft_savetext.c ft_initialisation2.c \
 		ft_lstadd_back.c ft_lstnew.c get_text.c ft_render_utils.c \
-		ft_free.c ft_substr.c ft_save_all.c ft_maperror.c ft_save.c
+		ft_free.c ft_substr.c ft_save_all.c ft_maperror.c ft_save.c \
+		ft_lifebar.c
 
 
 OBJECT = $(SRC:.c=.o)
