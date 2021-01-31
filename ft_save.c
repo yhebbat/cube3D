@@ -54,7 +54,7 @@ void		get_screen(int fd)
 	int		y;
 
 	y = g_data.win_height;
-	while (--y >= 0)
+	while (--y > 0)
 	{
 		x = -1;
 		while (++x < g_data.win_width)
@@ -77,12 +77,12 @@ void		bmp_save(void)
 	g_mlx.img = mlx_new_image(g_mlx.mlx, g_data.win_width, g_data.win_height);
 	g_mlx.addr = (int *)mlx_get_data_addr(g_mlx.img,
 			&g_mlx.bpp, &g_mlx.size_line, &g_mlx.endian);
-	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
 	cast_all_rays();
 	ft_sprite();
 	file_header(fd);
 	dib_header(fd);
 	get_screen(fd);
+	mlx_destroy_image(g_mlx.mlx, g_mlx.img);
 	close(fd);
 	exit(0);
 }

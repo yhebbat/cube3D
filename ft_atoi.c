@@ -33,7 +33,7 @@ int				ft_atoi(const char *str)
 		result = result * 10 + (*str - '0');
 		str++;
 		if (result > 4294967295 && signe == 1)
-			return (-1);
+			return (2560);
 		if (signe == -1 && result > 4294967295)
 			return (0);
 	}
