@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prototype.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yhebbat <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/31 15:52:14 by yhebbat           #+#    #+#             */
+/*   Updated: 2021/01/31 15:52:22 by yhebbat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PROTOTYPE_H
 # define PROTOTYPE_H
 
@@ -52,8 +64,8 @@ void			ft_color(char **color, char *str);
 void			ft_check_colors(char *str);
 void			ft_check_textures(char *str);
 int				ft_condition_textures(char *str);
-void    		ft_get_textures(void);
-void    		get_no(void);
+void			ft_get_textures(void);
+void			get_no(void);
 void			ft_check_file(char *str);
 void			ft_check_extention(char *str);
 void			ft_check_xpm(char *str);
@@ -105,9 +117,8 @@ void			ft_jareb(void);
 /*
 **free
 */
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-void		ft_free2(char **p);
-
-void    bmp_save(void);
+char			*ft_substr(char const *s, unsigned int start, size_t len);
+void			ft_free2(char **p);
+void			bmp_save(void);
 
 #endif

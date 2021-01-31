@@ -1,4 +1,4 @@
-R 1920 1080
+R 1920 1080 
 
 WE ./texture/masked.xpm
 EA ./texture/rolling_stones.xpm
@@ -6,7 +6,7 @@ NO  ./texture/rl_stones.xpm
 SO ./texture/yoda.xpm
 S ./texture/barrel.xpm
 
-F 40,40,255
+F 115,115,115
 C 0,179,179
 
         1111 11111111111111111111

@@ -39,8 +39,6 @@
 
 # define TILE_SIZE 64
 
-# define WIN_WIDTH (MAP_COLS * TILE_SIZE)
-
 # define PI 3.14159265
 # define TWO_PI 6.28318530
 # define RAYON 5
@@ -121,11 +119,8 @@ typedef struct	s_tray
 }				t_tray;
 
 t_tray			g_tray;
-t_ray			g_ray[NUM_RAYS];
+t_ray			g_ray[2550];
 t_mlx			g_mlx;
 t_player		g_player;
-
-
-
 
 #endif
