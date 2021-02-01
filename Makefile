@@ -15,10 +15,10 @@ NAME = cub3D.a
 all : $(NAME)
 
 $(NAME):
-	@gcc -Wall -Wextra -Werror -c $(SRC) -D BUFFER_SIZE=32
+	@gcc -Wall -Wextra -Werror -c $(SRC) -D BUFFER_SIZE=32 -O3
 	@ar rc $(NAME) $(OBJECT)
 	@ranlib $(NAME)
-	@gcc cub3d.c $(NAME) -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o cub3D -fsanitize=address -g
+	@gcc cub3d.c $(NAME) -I /usr/local/include -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -o cub3D -O3
 
 
 clean:
