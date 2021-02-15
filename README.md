@@ -19,6 +19,8 @@ La 1ere etape a faire : c’est de parsing “avec le quelle on prend toute les 
  	ft_savemap_utils.c
 	ft_saveresolution.c 
 	ft_savetext.c
+	
+
 La 2eme etape est de bien comprendre les fonctions de la minilibx :
 	mlx_loop_hook() ;
 	mlx_loop() ;
@@ -27,21 +29,35 @@ La 2eme etape est de bien comprendre les fonctions de la minilibx :
 	mlx_destroy_image() ;
 	mlx_hook() ;
 	vous pouvez chercher sur ce site :https://qst0.github.io/ft_libgfx/man_mlx.html	.
+	
+
 La 3eme chose est d’ouvrir une fenêtre et une image  et dessiner des carres, des ligne et des cercles .
 	ft_utils.c
+	
+
 La 4eme étape dessiner la MINIMAP pour apprendre a utiliser la Minilibx.
 	ft_draw.c
 	ft_cube.c (draw_map)
+	
+
 La 5eme étape savoir récupérer les keys faire bouger le joueur dans la minimap.
 	ft_keys.c
+	
+
 La 6eme étape est le Raycasting.
 	ray_cast_algo.c
 	ft_vert_horiz_inter.c
+	
+
 La 7eme étape est dessiner les murs .
 	ft_render.c
+	
+
 La 8eme étape et d’ajouter les textures.
 	ft_render.c
 	get_text.c
+	
+
 La dernière étape est d’enregistrer la première image rendue dans .bmp
 	ft_save.c
 	https://en.wikipedia.org/wiki/BMP_file_format
