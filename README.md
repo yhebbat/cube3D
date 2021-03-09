@@ -1,6 +1,4 @@
-# Mara jaya matconnectach github dialk finma kan
-
-UN JEU 3D AVEC LE LANGUAGE “C” :o
+# UN JEU 3D AVEC LE LANGUAGE “C” :o
 
 
 Le sujet
